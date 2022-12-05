@@ -1,0 +1,48 @@
+{% schema %}
+   {
+    "name": "Footer",
+    "settings": [
+		{
+			"type":"link_list",
+			"id":"main_menu",
+			"label":"select menu for header",
+			"default":"main-menu"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="footer-top-cover">
+        <div class="row">
+          {% for link in linklists[section.settings.main_menu].links %}
+          <div class="footer-col">
+            <h5 class="footer-title">{{ link.title }}</h5>
+            {% if link.links %}
+            <ul class="footer-menu">
+              {% for sub_link in link.links %}
+              <li><a href="{{ sub_link.url }}">{{ sub_link.title }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row jc-c">
+        <p>© OASIS 2019 <span>|</span> WEBSITE DESIGN BY WPM DIGITAL</p>
+      </div>
+    </div>
+  </div>
+</footer>

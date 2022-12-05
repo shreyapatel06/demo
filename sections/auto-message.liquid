@@ -1,0 +1,141 @@
+{% assign delay = section.settings.delay %}
+{% assign show = section.settings.show_time %}
+{% for block in section.blocks %}
+{% if block.settings.message != blank %}
+<div class="auto_popup auto_popup{{ forloop.index }}" data-delay="{{ delay }}" data-show="{{ show }}">    
+  <div class="pop_text">
+    <div class="pop1">
+      {{ block.settings.message }}
+    </div>      
+  </div>
+  <a class="close_popup">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M20 1.17838L18.8216 0L10 8.82162L1.17838 0L0 1.17838L8.82162 10L0 18.8216L1.17838 20L10 11.1784L18.8216 20L20 18.8216L11.1784 10L20 1.17838Z" fill="#302519"></path>
+    </svg>
+  </a>
+</div>
+{% endif %}
+{% endfor %}
+
+
+<script>
+  $(document).ready(function() { 
+    var cnt = 0;
+    var cnt_pop = -1;
+    var all_pop = $('.auto_popup').length;
+    var show = parseInt($('.auto_popup').attr('data-show'));
+    console.log(typeof(show)+"=="+show);
+    var alpha =[];
+    for(var j = 1; j<=all_pop;j++){
+      alpha.push(j);
+    }
+    var i;
+    for (i=0;i<1;i++){        
+      var a = alpha[Math.floor(Math.random() * alpha.length)];        
+    }
+    var code = a;
+    console.log(a);
+    
+    
+    var time =[1000,2000,3000,4000];
+    for(var k=0;k <= time.length;k++){
+      var c = time[Math.floor(Math.random() * time.length)];
+    }
+    console.log(c);
+    
+    setTimeout(function(){
+      $('.auto_popup'+code).addClass("active");
+    },show*1000);
+
+    setTimeout(function(){
+      $('.auto_popup'+code).removeClass("active");
+    },((show+4)*1000));
+    
+    
+
+   
+//     var all_pop = $('.auto_popup').length - 1;
+//     var delay = $('.auto_popup').attr('data-delay');
+//     var show = parseInt(delay) + parseInt($('.auto_popup').attr('data-show'));
+//     setInterval(function(){
+//       cnt++;
+//       if(cnt == delay){
+//         cnt_pop++;
+//         $('.auto_popup:eq('+cnt_pop+')').addClass('active');
+//       }
+//       if(cnt == show){
+//         $('.auto_popup').removeClass('active');
+//         cnt = 0;
+//         if(all_pop == cnt_pop){
+//           cnt_pop = -1;
+//         }
+//       }
+//     }, 1000);
+    
+    $('body').on('click','.close_popup',function(){
+      $('.auto_popup').removeClass('active');
+    }); 
+  });
+</script>
+
+
+{% schema %}
+  {
+    "name": "Auto messages",
+    "settings": [
+		{
+            "type": "range",
+            "id": "delay",
+            "min": 5,
+            "max": 50,
+            "step": 1,            
+            "label": "Message delay seconds",
+			"default": 10
+        },
+		{
+            "type": "range",
+            "id": "show_time",
+            "min": 3,
+            "max": 30,
+            "step": 1,            
+            "label": "Show Message seconds",
+            "default": 5
+        }
+	],
+	"blocks": [
+		{
+			"name": "Messages",
+			"type": "messages",
+			"settings": [
+				{
+					"type": "richtext",
+					"id": "message",
+					"label": "Message"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}
+
+<style>
+  .auto_popup {
+  position: fixed;
+  bottom: 60px;
+  background-color: #d4b978;
+  left: 20px;
+  padding: 10px 10px;
+  box-shadow: 2px 5px 25px rgb(0 0 0 / 20%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 450px;
+  width: 100%;
+  transition: all 0.6s ease-in-out;
+  transform: translateX(-500px);
+}
+.auto_popup.active {
+  transform: translateX(0);
+}
+</style>

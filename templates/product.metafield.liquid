@@ -1,0 +1,15 @@
+{% layout none %}
+
+{% assign current_variant = product.selected_or_first_available_variant  %}
+{% assign all_options_size = current_variant.metafields.choice.choice.size | minus : 1 %}
+{% for i in (0..all_options_size) %}
+<div class="meta">
+  <input type="radio" id="select_option_{{ i }}" class="select_option select_options" name="properties[Selected Option]" value="{{ current_variant.metafields.choice.choice[i] }}" hidden="hidden">
+  <label for="select_option_{{ i }}">
+    <h4>{{ current_variant.metafields.choice.text[i] }}</h4>
+    <div class="metafield">
+      <img src="{{ current_variant.metafields.choice.choice[i] }}" alt="{{ current_variant.metafields.choice.choice[i].alt }}">
+    </div>
+  </label>
+</div>
+{% endfor %}

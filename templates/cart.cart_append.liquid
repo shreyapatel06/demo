@@ -1,0 +1,44 @@
+{% layout none %}
+{% for item in cart.items %}
+<div class="row cart_item {{ item.id }}" data-id="{{ item.id }}">
+  <div class="image">
+    <div class="cart-img">
+      {% if item.image %}
+      <a href="{{ item.product.url }}">
+        <img src="{{ item.product.images.first | img_url:'small' }}" alt="Product Name">
+      </a> 
+      {% endif %}
+    </div>
+  </div>
+  <div class="desc">
+    <div class="item-info">
+      <p><a href="{{ item.product.url }}">{{ item.title }}</a></p>
+      <p><a href="{{ item.product.url }}">{{ item.product.content | truncate:100 }}</a></p>
+      <p>{% assign property_size = item.properties | size %}
+        {% if property_size > 0 %}
+        {% for p in item.properties %}
+        {% unless p.last == blank %}
+        {{ p.first }}:
+        {% if p.last contains '/uploads/' %}
+        <a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+        {% else %}
+        {{ p.last }}
+        {% endif %}
+        <br>	
+        {% endunless %}
+        {% endfor %}
+        {% endif %}
+      </p>
+    </div>
+  </div>
+  <div class="price">{{ item.price | money }}</div>
+  <div class="qty">
+    <input type="text" class="cart-input"  id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}">
+  </div>
+  <div class="total">
+    {% assign count=item.quantity %}
+    {{ item.price | times:count | money }}
+  </div>
+  <div class="remove"><a href="/cart/change?line={{ forloop.index }}&quantity=0"><img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/close-icon.svg?v=1598246447" alt=""></a></div>
+</div>
+{% endfor %}

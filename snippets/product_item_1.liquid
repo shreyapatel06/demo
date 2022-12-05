@@ -1,0 +1,64 @@
+{% comment %}
+<div class="product-item product-items">
+  <div class="product-item-cover">
+    {% if product.images.size > 0 %}
+    <div class="product-image" data-proHandle="{{ product.handle }}">
+      <a href="{{ product.url }}">
+        <img class="productImg" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.feautured_image.alt}}" data-proHandle="{{ product.handle }}" data-src1="{{ product.featured_image | img_url: 'master' }}" />
+        <!--   {% if product.images.size > 1 %}
+<img class="hoverImg" src="{{ product.images[1] | img_url: 'master' }}" alt="{{ product.feautured_image.alt}}" />
+{% endif %} -->
+      </a>
+    </div>
+    {% endif %}
+    <div class="product-meta">
+      <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+      <p>{{ product.price | money }}</p>
+      <div class="add-to-cart">
+        <button type="submit" class="addcart {% unless product.available %}disabled{% endunless %}" data-id="{{ product.selected_or_first_available_variant.id }}">{% if product.available %}Add to Cart{% else %}Sold out{% endif %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .product-item .product-image .productImg{
+    display:block;
+  }
+  .product-item .product-image .hoverImg{
+    display:none;
+  }
+  .product-item .product-image:hover .productImg{
+    display:block !important;
+  }
+  .product-item .product-image:hover .hoverImg{
+    display:none !important;
+  }
+</style>
+{% endcomment %}
+
+<div class="product-item product-items">
+  <div class="product-item-cover">
+    {% if product.images.size > 0 %}
+    <div class="product-image" data-proHandle="{{ product.handle }}">
+      <a href="{{ product.url }}" class="productImg" data-proHandle="{{ product.handle }}">
+        <img class="" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.feautured_image.alt}}" data-proHandle="{{ product.handle }}" data-src1="{{ product.featured_image | img_url: 'master' }}" />
+      </a>
+      <a href="{{ product.url }}" class="hoverImg">
+        <img class="" src="{{ product.images[1] | img_url:'master' }}" alt="{{ product.images[1].alt }}">
+      </a>
+<!--       {% for image in product.images %}
+      <a href="{{ product.url }}" class="hoverImg">
+        <img class="" src="{{ image | img_url:'master' }}" alt="{{ image.alt }}">
+      </a>
+      {% endfor %} -->
+    </div>
+    {% endif %}
+    <div class="product-meta">
+      <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+      <p>{{ product.price | money }}</p>
+      <div class="add-to-cart">
+        <button type="submit" class="addcart {% unless product.available %}disabled{% endunless %}" data-id="{{ product.selected_or_first_available_variant.id }}">{% if product.available %}Add to Cart{% else %}Sold out{% endif %}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "label": "Favicon ICON",
+        "type": "image_picker",
+        "id": "favicon",
+        "info": "Recommended image size 870X645"
+      }
+    ]
+  },
+  {
+    "name": "Shipping Rates Calculator",
+    "settings": [
+      {
+        "type": "select",
+        "id": "shipping_calculator",
+        "label": "Show the shipping calculator?",
+        "options": [
+          {
+            "value": "Disabled",
+            "label": "No"
+          },
+          {
+            "value": "Enabled",
+            "label": "Yes"
+          }
+        ],
+        "default": "Enabled"
+      },
+      {
+        "type": "text",
+        "id": "shipping_calculator_heading",
+        "label": "Heading text",
+        "default": "Get shipping estimates"
+      },
+      {
+        "type": "text",
+        "id": "shipping_calculator_default_country",
+        "label": "Default country selection",
+        "default": "United States"
+      },
+      {
+        "type": "paragraph",
+        "content": "If your customer is logged-in, the country in his default shipping address will be selected. If you are not sure about the  spelling to use here, refer to the first checkout page."
+      },
+      {
+        "type": "text",
+        "id": "shipping_calculator_submit_button_label",
+        "label": "Submit button label",
+        "default": "Calculate shipping"
+      },
+      {
+        "type": "text",
+        "id": "shipping_calculator_submit_button_label_disabled",
+        "label": "Submit button label when calculating",
+        "default": "Calculating..."
+      },
+      {
+        "type": "paragraph",
+        "content": "Do not forget to include the snippet shipping-calculator in your cart.liquid template where you want the shipping calculator to appear. You can get the snippet here: [shipping-calculator.liquid](https:\/\/github.com\/carolineschnapp\/shipping-calculator\/blob\/master\/shipping-calculator.liquid) ."
+      }
+    ]
+  },
+  {
+    "name": "Free Items",
+    "settings": [
+      {
+        "type": "product",
+        "id": "free_1",
+        "label": "Select 1st Free Product",
+        "info": "Cart price grether than Rs. 100 \/- then add free product."
+      },
+      {
+        "type": "product",
+        "id": "free_2",
+        "label": "Select 2nd Free Product",
+        "info": "Cart price grether than Rs. 200 \/- then add free product."
+      },
+      {
+        "type": "product",
+        "id": "free_3",
+        "label": "Select 3rd Free Product",
+        "info": "Cart price grether than Rs. 300 \/- then add free product."
+      }
+    ]
+  },
+  {
+    "name": "App: Wishlist King",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Styling & Customisations",
+        "info": "Please note: Wishlist King is 100% customisable to integrate seamlessly with any theme. If you need customisations beyond what you can change below, please get in touch: support@appmate.io"
+      },
+      {
+        "type": "checkbox",
+        "id": "app_wk_enabled",
+        "label": "Enable Wishlist King",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "app_wk_login_required",
+        "label": "Customer Login Required",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "app_wk_icon",
+        "label": "Wishlist Icon",
+        "info": "Choose between Heart or Star icon. For your own custom icon, please contact support@appmate.io",
+        "options": [
+          {
+            "value": "heart",
+            "label": "Heart"
+          },
+          {
+            "value": "star",
+            "label": "Star"
+          }
+        ],
+        "default": "heart"
+      },
+      {
+        "type": "header",
+        "content": "Button - Collection"
+      },
+      {
+        "type": "select",
+        "id": "app_wk_col_bg_shape",
+        "label": "Button Shape",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "circle",
+            "label": "Circle"
+          },
+          {
+            "value": "none",
+            "label": "No Background"
+          }
+        ],
+        "default": "square"
+      },
+      {
+        "type": "header",
+        "content": "Wishlist Page"
+      },
+      {
+        "type": "select",
+        "id": "app_wk_share_position",
+        "label": "Share Wishlist Position",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          },
+          {
+            "value": "hidden",
+            "label": "Hidden"
+          }
+        ],
+        "default": "top"
+      },
+      {
+        "type": "select",
+        "id": "app_wk_products_per_row",
+        "label": "Products per Row",
+        "options": [
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          }
+        ],
+        "default": "4"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "label": "Products",
+        "type": "product_list",
+        "id": "products"
+      }
+    ]
+  }
+]

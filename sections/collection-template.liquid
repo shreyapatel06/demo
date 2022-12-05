@@ -1,0 +1,471 @@
+{% comment %}
+{% assign coll = false %}
+{% for link in linklists['main-menu'].links %}
+{% if link.active and link.object.handle == collection.handle %}
+{{ link.title }}<br>
+{% for sub_link in link.links %}
+	----{{ sub_link.object.title | link_to:sub_link.object.url }}<br>
+{% endfor %}
+{% assign coll = false %}
+{% break %}
+{% else %}
+	{%  assign coll = true %}
+{% endif %}
+{% endfor %}
+{% endcomment %}
+
+{% comment %}
+{% for block in section.blocks %}
+{% if block.settings.liquid1 != blank %}
+{{ block.settings.liquid1 }}
++++++++++++++++++++++++++++++++
+{% endif %}
+{% endfor %}
+{% endcomment %}
+<br>
+
+{% assign text1 = collection.metafields.new.new1 | join:'|' | split:'|'  %}
+{% assign text2 = collection.metafields.new.new2 | join:'|' | split:'|'  %}
+{% assign size = collection.metafields.new.new1 | join:'|' | split:'|' | size %}
+{% for i in (0..size) %}
+text1== {{ text1[i] }}<br>
+text2== {{ text2[i] }}<br>
+==========================<br>
+{% endfor %}
+
+<main class="main-content collection" data-section="collection-template">
+<!--   <section class="page-header dataBg" {% if section.settings.bg_img != blank %}data-bg-src="{{ section.settings.bg_img | img_url:'master' }}"{% endif %}>
+    <div class="container">
+      <h1 class="text-center color4">{{ collection.title }}</h1>
+    </div>
+  </section> -->
+  <section class="shop-section">
+    <div class="container-big">
+      
+      
+<!-- <form class="filter-form">
+  {%- for filter in collection.filters -%}
+    <details class="filter-group">
+      <summary class="filter-group-summary">
+        <div>
+          <span>{{ filter.label }}</span>          {%- if filter.active_values.size > 0 -%}
+            <span>({{ filter.active_values.size }})</span>
+          {%- endif -%}
+        </div>
+      </summary>      <div class="filter-group-display">
+        <div class="filter-group-display__header">
+          <span class="filter-group-display__header-selected">{{ filter.active_values.size }} selected</span>          {%- if filter.active_values.size > 0 -%}
+            <a href="{{ filter.url_to_remove }}" class="filter-group-display__header-reset">Reset</span>
+          {%- endif -%}
+        </div>        {%- case filter.type -%}
+          {%- when 'list' -%}
+            <ul class="filter-group-display__list">
+              {%- for filter_value in filter.values -%}
+                <li class="filter-group-display__list-item">
+                  <input type="checkbox"
+                    name="{{ filter_value.param_name }}"
+                    value="{{ filter_value.value }}"
+                    id="Filter-{{ filter.label }}-{{ forloop.index }}"
+                    {% if filter_value.active -%}checked{%- endif %}
+                    {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                  >
+                </li>
+              {%- endfor -%}
+            </ul>            <div class="filter-group-display__submit">
+              <input type="submit" value="Apply">
+            </div>
+          {%- when "price_range" -%}
+            <div class="filter-group-display__price-range">
+              <div class="filter-group-display__price-range-from">
+                <span>{{ cart.currency.symbol }}</span>                <input name="{{ filter.min_value.param_name }}"
+                  id="Filter-{{ filter.label }}-{{ forloop.index }}"
+                  {% if filter.min_value.value -%}
+                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                  {%- endif %}
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >                <label for="Filter-{{ filter.label }}-{{ forloop.index }}">From</label>
+              </div>
+              <div class="filter-group-display__price-range-to">
+                <span>{{ cart.currency.symbol }}</span>                <input name="{{ filter.max_value.param_name }}"
+                  id="Filter-{{ filter.label }}-{{ forloop.index }}"
+                  {% if filter.max_value.value -%}
+                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                  {%- endif %}
+                  type="number"
+                  placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >                <label for="Filter-{{ filter.label }}-{{ forloop.index }}">To</label>
+              </div>
+            </div>            <div class="filter-group-display__submit">
+              <input type="submit" value="Apply">
+            </div>
+        {%- endcase -%}
+      </div>
+    </details>
+  {%- endfor -%}  <div class="active-filters">
+    <a href="{{ collection.url }}" class="active-filters__clear">Clear all</a>    {%- for filter in collection.filters -%}
+      {% if filter.type == "price_range"  %}
+        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+          <a class="active-filters__remove-filter" href="{{ filter.url_to_remove }}">
+            {%- assign min_value = filter.min_value.value | default: 0 -%}
+            {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+            {{ min_value | money }} - {{ max_value | money }} X
+          </a>
+        {%- else -%}
+          {%- for filter_value in filter.active_values -%}
+            <a class="active-filters__remove-filter" href="{{ filter_value.url_to_remove }}">
+              {{ filter_value.label }} X
+            </a>
+          {%- endfor -%}
+        {%- endif -%}
+      {% endif %}
+    {%- endfor -%}
+  </div>
+</form> -->
+          
+      
+      <div class="row">
+        {% if section.settings.show_filter %}
+        <div class="left">
+          <div class="browse-title">
+            <h5>BROWSE CATEGORIES
+              
+            </h5>
+            <button class="back_button" data-url="{{ request.path }}">BAck</button>
+            
+
+          </div>
+         {% comment %}
+          <div class="sort-by">
+            {%- assign sort_by = collection.sort_by | default:'manually' -%}
+            <select class="custom-select" placeholder="sort by" id="sort-by">
+              <option value="manual" selected="selected">Sort By</option>
+              {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>{{ option.name }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          {% endcomment %}
+
+          {% for filter in collection.filters %}
+          {% if filter.type == 'list' %}
+          {% for filter_value in filter.active_values %}
+          <a class="active_filter" href="{{ filter_value.url_to_remove }}">{{ filter_value.label }} X</a>
+          {% endfor %}
+          {% else %}
+          {% if filter.min_value.value != nill or filter.max_value.value != nill %}
+          <a class="active_filter" href="{{ filter.url_to_remove }}">
+            {%- assign min_value = filter.min_value.value | default: 0 -%}
+            {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+            {{ min_value | money }} - {{ max_value | money }} X
+          </a>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+          <form class="filter-form">
+            {% for filter in collection.filters %}
+            {% case filter.type %}
+            {% when 'price_range' %}
+            <ul>
+              <li class="{% if filter.min_value.value != nill or filter.max_value.value != nill %}active-drop {% endif %}  cat_list"><a href="javascript:void();">{{ filter.label }}{% if filter.values.size > 0  %}[{{ filter.values.size }}]{% endif %}</a>
+                <span class="expand close">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="11" viewBox="0 0 17 11">
+                    <g>
+                      <g>
+                        <path fill="#b9ad9b"
+                              d="M8.567 10.75L.35 2.533 2.797.085l5.77 5.77 5.77-5.77 2.447 2.448z" />
+                      </g>
+                    </g>
+                  </svg>
+                </span>
+                {% if filter.min_value.value != nill or filter.max_value.value != nill %}<a href="{{ filter.url_to_remove }}">reset</a>{% endif %}
+                
+                <ul class="advanced-filters eg-cover-checkbox">
+                  <li class="{% if filter.active %}active-filter{% endif %} ">
+                    <input id="{{ filter.min_value.label }}" type="number" placeholder="0"  name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" class="filter_price">
+                    -
+                    <input id="{{ filter.max_value.label }}" type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" class="filter_price">
+                  </li>
+                </ul>
+                
+              </li>
+            </ul>
+            {% when 'list' %}
+            <ul>
+              <li class="{% if filter.active_values.size > 0 %}active-drop {% endif %}  cat_list"><a href="javascript:void();">{{ filter.label }}{% if filter.values.size > 0  %}[{{ filter.values.size }}]{% endif %}</a>
+                <span class="expand close">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="11" viewBox="0 0 17 11">
+                    <g>
+                      <g>
+                        <path fill="#b9ad9b"
+                              d="M8.567 10.75L.35 2.533 2.797.085l5.77 5.77 5.77-5.77 2.447 2.448z" />
+                      </g>
+                    </g>
+                  </svg>
+                </span>
+                {% if filter.active_values.size > 0 %}<a href="{{ filter.url_to_remove }}">reset</a>{% endif %}
+                
+                <ul class="advanced-filters eg-cover-checkbox">
+                  {% for filter_value in filter.values %}
+                  <li class="{% if filter_value.active %}active-filter{% endif %} filter_li">
+                    <input id="{{ filter_value.label }}" type="checkbox" {% if filter_value.active %}checked="checked"{% endif %} name="{{ filter_value.param_name }}" value="{{ filter_value.value }}" class="filter_checkbox">
+                    <label for="{{ filter_value.label }}" ><a href="javascript:void();">{{ filter_value.label }}</a></label>
+                  </li>
+                  {% endfor %}
+                </ul>
+                
+              </li>
+            </ul>
+            {% endcase %}
+            {% endfor %}
+            <button class="apply_button" >Apply</button>
+          </form>
+
+<!--            <ul>
+            {% if request.page_type == 'collection' and collection.all_tags.size > 0 %}
+            {% assign categories = '' %}
+            {% for tag in collection.all_tags %}
+            {% if tag contains '_' %}
+            {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}{{ tag | split: '_' | first }}{% endcapture %}
+            {% if current_tags  contains tag %}
+            {% capture current_categories %}{% unless current_categories == blank  %}{{ current_categories }}|{% endunless %}{{ tag | split: '_' | first }}{% endcapture %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% assign cat_array = categories | split: '|' | uniq %}
+            {% assign current_cat_array = current_categories | split: '|' | uniq %}
+            {% endif %}
+            {% assign cat_array_1 = categories | split:'|'  | sort %}
+            {% for cat_item in cat_array %}
+            {% assign cat_item_count = cat_array_1 | where: cat_item | size | prepend: " [" | append: "]" %}
+            {% if current_cat_array contains cat_item %}
+            {% assign class = "active-drop" %}
+            {% else %}
+            {% assign class = "" %}	
+            {% endif %}
+            
+            <li class="{{ class }} cat_list"><a>{{ cat_item | append: cat_item_count  | capitalize }}
+              <span class="expand close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="11" viewBox="0 0 17 11">
+                  <g>
+                    <g>
+                      <path fill="#b9ad9b"
+                            d="M8.567 10.75L.35 2.533 2.797.085l5.77 5.77 5.77-5.77 2.447 2.448z" />
+                    </g>
+                  </g>
+                </svg>
+              </span>
+              <ul class="advanced-filters eg-cover-checkbox">
+                {% for tag in collection.all_tags %}
+                {% assign cat = tag | split: '_' | first %}
+                {% if cat != tag and cat_item == cat %}
+                {% assign count1 = 0 | plus:1 | times: 0 %}
+                {% for pro in collection.products %}
+                {% if pro.tags contains tag %}
+                {% assign count1 = count1 | plus:1 %}
+                {% endif %}
+                {% endfor %}
+                {% capture count %}
+                [{{ count1 }}]
+                {% endcapture %}
+                
+                {% if current_tags contains tag %}
+                {% capture tag1 %}
+                <li class="active-filter filter_li" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                  <input type="checkbox" checked="checked" value="{{ tag }}" class="filter_checkbox">
+                  <label>{{ tag | remove_first: cat_item | remove_first: '_' | append: count | capitalize }}</label>
+                </li>
+                {% endcapture %}
+                {{ tag1 | link_to_remove_tag: tag }}
+                {% else %}
+                {% capture tag2 %}
+                <li class="filter_li" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                  <input type="checkbox" value="{{ tag }}" class="filter_checkbox">
+                  <label>{{ tag | remove_first: cat_item | remove_first: '_' | append: count |capitalize  }}</label>
+                </li>
+                {% endcapture %}
+                {{ tag2 | link_to_add_tag: tag  }}
+                {% endif %}
+
+                
+                {% endif %}
+                {% endfor %}
+              </ul>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>  -->
+          <div>
+          </div>
+          
+
+        </div>
+        {% endif %}
+        <div class="right">
+          <div class="shop-header">
+            <div class="row ai-c">
+              <h2 class="h3">{{ collection.title }}</h2>
+              <div class="filter">
+                <select class="sort-by">
+                  <option value="manual" selected="selected">View By</option>
+                  <option value="price-ascending">Price: Low to High</option>
+                  <option value="price-descending">Price: High to Low</option>
+                  <option value="title-ascending">A-Z</option>
+                  <option value="title-descending">Z-A</option>
+                  <option value="created-ascending">Oldest to Newest</option>
+                  <option value="created-descending">Newest to Oldest</option>
+                  <option value="best-selling">Best Selling</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row products grid-4 text-center" id="products">
+            {% paginate collection.products by shop.products_count %}
+            {% for product in collection.products %}
+            {% include 'product_item' %}
+            {% endfor %}
+            {% endpaginate %}
+          </div>
+<!--           <div class="load-more button6 text-center">
+            <a>Load More</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+</main>
+
+<!-- <div class="quickview_popoup_overlay"></div> -->
+
+<style>
+/*   .product-items{
+    display:none;
+  }
+  .product-items:nth-child(-n+4){
+    display:block;
+  } */
+  .active-filter a{
+    color:#ff006a;
+  }
+  .active-drop>a{
+    color: #960369;
+    font-weight:bold;
+  }
+  .product-item .product-meta {
+    justify-content: unset !important;
+  }
+  /*   .selector-wrapper{
+  display:none;
+  } */
+  a.active_filter {
+    padding: 8px;
+    background: #faebd76e;
+    margin-top: 5px;
+    margin-right: 6px;
+    display: inline-block;
+    border: 1px solid #c1bfbf;
+  }
+  input.filter_price {
+    width: 40%;
+    color: #c7beb0;
+    outline: none;
+    border-color: #deb887bf;
+  }
+</style>
+<script>
+  jQuery('.SortBy')
+  .bind('change', function(e) {
+    e.preventDefault();
+    var val = jQuery(this).val();
+    val = val.replace(/\+/g, '%20');
+    var url = window.location.href+'?sort_by='+val;
+    window.location.assign(url);
+  });
+//   $(document).ready(function(){
+//     function get_url(){
+//       var all_tag = [];
+//       $('input[type="checkbox"]:checked.filter_checkbox').each(function(index,val){
+//         var tag = $(val).parents('li').data('handle');
+//         all_tag.push(tag);
+//       });
+//       all_tag = all_tag.join('+');
+//       window.location.assign('/collections/{{ collection.handle }}/'+ all_tag);
+//     }
+
+//       if($(window).width() > 767){
+//         $('body').on("click",".filter_checkbox",function(e){
+//           var url = $(this).parents('a').attr('href');
+//           console.log(url);
+//           window.location.assign(url);
+//         });
+//       }else{
+//         $('body').on("click",'.apply_button',function(e){
+//           e.preventDefault();
+//           get_url();
+//         });
+//       }
+      
+//       var a_link = $('.filter_li').parents('a');
+//       $('body').on("click",a_link,function(e){
+//         e.preventDefault();
+//       });
+//   });
+
+
+$(document).ready(function(){
+  $('body').on("click",".filter_li",function(e){
+    $(this).closest("form").trigger("submit");
+  });
+  $('body').on("blur",".filter_price",function(e){
+    var val = $(this).val();
+    if(val != ''){
+      $(this).closest("form").trigger("submit");
+    }
+  });
+});
+  
+</script>
+
+
+{% schema %}
+{
+	"name":"Collection",
+	"settings":[
+		{
+			"type":"image_picker",
+			"id":"bg_img",
+			"label":"Collection Image"
+		},
+		{
+			"type":"liquid",
+			"id":"liquid",
+			"label":"metafield"
+		},
+		{
+			"type":"checkbox",
+			"id":"show_filter",
+			"label":"Show Sidebar Filter",
+			"info":"[learn more](https://shreya-cirkle.myshopify.com/collections/dress-gown/gown_less+color_black+color_blue)"
+		}
+	],
+	"blocks":[
+		{
+			"type":"block",
+			"name":"Block",
+			"settings":[
+				{
+                    "type":"liquid",
+                    "id":"liquid1",
+                    "label":"metafield1"
+                }	
+			]
+		}
+	]
+}
+{% endschema %}

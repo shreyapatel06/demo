@@ -1,0 +1,67 @@
+
+<section class="section-404">
+  <div class="wrap-404">
+    <div class="cs-container">
+      <h1 class="title-404">
+        <span class="for">4</span><span class="zero">
+        {% if section.settings.image %}
+        <img src="{{ section.settings.image | asset_img_url:"master" }}" alt="{{ section.settings.image.alt }}">
+        {% else %}
+        <span class="for">0</span>
+        {% endif %}
+        </span><span class="for">4</span>
+      </h1>
+      {% if section.settings.not_found_content != blank %}
+      <p class="notfound">{{ section.settings.not_found_content }}</p>
+      {% endif %}
+      {% assign length = section.blocks | size %}
+      {% if length  > 0 %}
+      <div class="countinue-shop">
+        {% for block in section.blocks  %}
+        {% if block.settings.btn_text != blank %}
+        <div class="shop_btn">
+          <a href='{% if block.settings.btn_link != blank %}{{ block.settings.btn_link }}{% else %}#{% endif %}'>{{ block.settings.btn_text }}</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "404 page",
+    "settings": [
+		{
+			"type":"image_picker",
+			"id":"image",
+			"label":"Zero Image"
+		},
+		{
+			"type":"text",
+			"id":"not_found_content",
+			"label":"Content",
+			"default":"Page Not Found"
+		}
+	],
+	"blocks":[
+		{
+			"type":"btn",
+			"name":"button",
+			"settings":[
+				{
+					"type":"text",
+					"id":"btn_text",
+					"label":"Button Text"
+				},
+				{
+					"type":"url",
+					"id":"btn_link",
+					"label":"Button Link"
+				}
+			]
+		}	
+	]
+  }
+{% endschema %}

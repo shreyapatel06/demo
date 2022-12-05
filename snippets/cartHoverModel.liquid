@@ -1,0 +1,90 @@
+<div id="crt" class="{% if cart.item_count > 0 %}has-item{% endif %}">
+  <form action="/cart" method="post" id="">
+    {% if cart.item_count > 0 %}
+
+    <div class="quick-items">
+      {% for item in cart.items %}
+      <div class="quick-cart-item">
+        <div class="quick-cart-image">
+          <!-- Mayur Code Pre-Order -->
+          {%- assign property_size = item.properties | size -%}
+          {% if property_size > 0 %}           
+          <div class="cart__meta-text"  >           
+            {% for p in item.properties %}                                      
+            <div class='LoyaltyProperty' style='display:none !important' data-key='{{p.first}}' >{{p.last}}</div>	
+            {% unless p.last == blank %}  
+            <!-- <div style="color:red">  Pre-Order </div>  {{ p.first }}: -->			           
+            {% endunless %}
+            {% endfor %}
+          </div>                    
+          {% endif %}
+          <!-- End Here -->
+
+          <a href="{{ item.product.url }}" title="{{ item.product.title | escape }}">
+            <img src="{{ item | img_url: 'small' }}"  alt="{{ item.alt | escape }}" />
+          </a>
+        </div>
+        <div class="quick-cart-details">
+          <div class="drawerTitleOuter">
+            <p class="ptitle"><a href="{{ item.product.url }}">{{ item.product.title | remove: ' / Default' | remove: 'Default'  }}</a></p>
+            {%- unless item.product.has_only_default_variant -%}
+            <p class="pvars">
+              {% for option_title in item.product.options %}
+              {{ option_title }}: {{item.variant.options[forloop.index0] }}<br>
+              {% endfor %}
+            </p>
+            {% endunless %}
+          </div>
+          <div class="pqty">
+            <div class="qtyAdjust quantity-wrap grid-form-add">
+              <span class="adjust minus">-</span>
+              <span class="qtyOuterinput"><input type="text" size="2" name="updates[]" data-id="{{ item.id }}" id="updates_{{ item.id }}" value="{{ item.quantity }}" onfocus="this.select();" class="tc item-quantityg quantity count" /></span>
+              <span class="adjust plus">+</span>
+            </div>
+          </div><a class="remove_item" title="Remove item" href="#" data-id="{{ item.variant.id }}"><img src="{{ 'trash.png' | asset_url }}" alt="" /></a><div class="priceC text-right">
+          <div class="pprice">
+            
+            {%- if item.original_price != item.final_price -%}
+            <span class="CartItem__Price Price Price--highlight">{{ item.final_price | money_without_trailing_zeros }}</span>
+            <span class="CartItem__OriginalPrice Price Price--compareAt">{{ item.original_price | money_without_trailing_zeros }}</span>
+            {%- else -%}
+            <span class="CartItem__Price Price">{{ item.final_price | money_without_trailing_zeros }}</span>
+            {%- endif -%}
+            
+          </div>      
+          <!-- Code Dont Remove -->
+          {% if item.original_line_price != item.line_price %}
+          <div class="cart-item__original-price" style="display:none;"><s>{{ item.original_line_price | money }}</s></div>
+          {% endif %}
+          <!-- end here -->
+          </div>
+        </div> 
+        {% assign pp = item.product.price | slice: -2, 2  %}
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endif %}
+    {% if cart.item_count != 0 %}
+    <div class="cartButtonOuter">
+      <div class="cartTotal discountOuter">
+        <span class="left"><input type="text" name="discount" placeholder="Promo Code" /></span><span class="right"><input name="checkout" type="submit" value="Apply" ></span>
+      </div>
+      <div class="cartTotal">
+        <span class="left"><strong>Total: </strong></span><span class="right"><strong>{{ cart.total_price | money }}</strong></span>
+      </div>
+      <div class="topcart-btn">
+        <button class="checkout-link btn-red checkout_btn" onclick="window.location.href='/checkout'" name="checkout">Checkout</button>
+<!--         <input class="checkout-link button" name="checkout" type="submit" value="Checkout" > -->
+        {% if additional_checkout_buttons %}        
+        <div class="extra-checkout-buttons">
+          {{ content_for_additional_checkout_buttons }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}
+    	<p class="emptyCart text-center">You have no items in your shopping cart.</p>
+    {% endif %}
+  </form>
+</div>

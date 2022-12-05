@@ -1,0 +1,39 @@
+<!-- Page.liquid v0.1 -->
+  <h2>{{page.title}}</h2>
+
+    {{page.content}}
+{% comment %}
+<div class="">
+
+  <iframe frameborder="0"  id="myiFrame" src="https://www.youtube.com/embed/FbwIASX-g_k?autoplay=1&controls=0" allowfullscreen sandbox="allow-same-origin allow-scripts" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+</div>
+  
+<!-- <iframe id="myiframe" width="200" height="200" srcdoc="<h1 id='title'>Hello from Iframe</h1><button type='button' id='fire'>Click Me!</button>"></iframe> -->
+
+  <style>
+
+iframe {
+    width: 500px;
+    height: 500px;
+}
+  
+</style>
+<script> 
+//   $(window).on("load",function(){
+// //     alert($('body').find('iframe').find('.ytp-show-cards-title').attr('class'));
+//         console.log($('body').find('iframe'));
+//     $('body').find('iframe').find('.ytp-show-cards-title').removeClass('ytp-chrome-top');
+//   });
+const iframe = document.getElementById('myiFrame');
+const iframeWin = iframe.contentWindow || iframe;
+const iframeDoc = iframe.contentDocument || iframeWin.document;
+  console.log(iframeDoc);
+	iframeDoc.getElementsByClassName("ytp-show-cards-title").innerHTML=" ";
+  var script = iframeDoc.createElement("script");
+  script.append(`
+    console.log("video iframe");
+`);
+  iframeDoc.documentElement.appendChild(script);
+
+</script>
+{% endcomment %}

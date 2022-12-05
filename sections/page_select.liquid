@@ -1,0 +1,79 @@
+{% assign menu = linklists[section.settings.menu] %}
+{% capture option_menu %}
+<option selected value="none">Select</option>
+{% for link in menu.links %}
+<option class="main_option"  value="{{ link.handle }}">{{ link.title }}</option>
+{% endfor %}
+{% endcapture %}
+
+{% capture option_submenu %}
+<option value="none" selected>Select</option>
+{% for link in menu.links %}
+{% for sublink in link.links %}
+<option class="sub_option {{ link.handle }}" data-handle='{{ sublink.handle }}' data-parentHandle='{{ link.handle }}' value="{{ sublink.url }}" >{{ sublink.title }}</option>
+{% endfor %}
+{% endfor %}
+{% endcapture %}
+
+
+<div>
+  Select 1:
+  <select class="main_select">
+    {{ option_menu }}
+  </select>
+  <br>
+  Select 2: 
+  <select class="sub_select">
+    {{ option_submenu }}
+  </select>
+  <br>
+  <button type="submit" class="submit">Submit</button>
+</div>
+
+
+
+<script>
+  $(document).ready(function(){
+    $('body').on("change",".main_select",function(e){
+      console.log($(this).val());
+      $('.sub_select').find('option').hide();
+      if($('.sub_select').find('.'+$(this).val()).length > 0){
+        $('.sub_select').show();
+        $('.sub_select').find('.'+$(this).val()).css("display","block");
+        $('.sub_select').find('.'+$(this).val()).first().attr("selected","selected");
+      } else{
+        $('.sub_select').hide();
+      }
+    });
+    $('body').on("click",".submit",function(e){
+      console.log($('.sub_select').val());
+      if($('.sub_select').val() == 'none'){
+        alert('select any option');
+      } else{
+        var href = $('.sub_select').val();
+        window.location.assign(href);
+      }
+    });
+  });
+</script>
+
+<style>
+  .sub_option{
+    display:none;
+  }
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "page section",
+    "settings": [
+		{
+			"type":"link_list",
+			"id":"menu",
+			"label":"Select Menu"
+		}
+	]
+  }
+{% endschema %}

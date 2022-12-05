@@ -1,0 +1,199 @@
+{{ 'monorama.css' | asset_url | stylesheet_tag }} 
+<div class="add_monogram">Add monogram</div>
+<div class="cModalContainer" tabindex="-1" role="dialog" aria-labelledby="modalTitle" data-type="Symbols" data-type-handleized="symbols">
+  <div class="cModal">
+    <div class="cModal-backdrop"></div>
+    <div class="cModal-window" role="document">
+      <button class="cModal-close">
+        <svg class="Icon" role="presentation" viewBox="0 0 16 14">
+          <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+        </svg>
+        <span>Close</span>
+      </button>
+      <div class="cModal-body">
+        <div class="cModal-content">
+          <div class="cModal-header">
+            <h2 id="modalTitle" class="cModal-title">Add a Monogram</h2>
+            <p class="cModal-description">Make it personal. Add up to ten letters for a truly unique touch. Embroidered monograms take 5-6 weeks and are final sale.</p>
+            <h3 class="cModal-price onchange_price">$25</h3>
+          </div>
+          <div class="cModal-image-container">
+            <div class="cModal-image" style="">
+              <div class="cModal-imageWrapper" style="font-size: 12px;">
+                <img loading="lazy" src="{{ product.featured_image | img_url:'master' }}" alt="Preview image for monogram placement">
+                <span class="cModal-monogramPlacement cModal-monogramSymbol classic cModal-monogramSymbol--transform" data-index="0" style="left: 70%;top: -7%;font-size: 0.95em;transform: translateX(-100%) translateY(0);display: block;">
+                  <span></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cModal-details">
+          <h4 class="cModal-details-title">Personalize Your Pillowcase Set</h4>
+          <div class="cModal-list">
+            <div class="cModal-item" data-type="type">
+              <div class="cModal-item-header">
+                <h4 class="cModal-item-title">Select Type</h4>
+              </div>
+              <ul class="cModal-options cModal-options-type">
+                <li class="cModal-list-item">
+                  <input id="option--Letters--0" name="radio_for_name" type="radio" value="Letters" class="cModal-radio-input" data-value="Letters" data-option="type">
+                  <label for="option--Letters--0" class="cModal-radio cModal-type-radio">
+                    Letters
+                  </label>
+                </li>
+                <li class="cModal-list-item">
+                  <input id="option--Symbols--1" name="radio_for_name" type="radio" value="Symbols" class="cModal-radio-input" data-value="Symbols" data-option="type" checked="checked">
+                  <label for="option--Symbols--1" class="cModal-radio cModal-type-radio">
+                    Symbols
+                  </label>
+                </li>
+              </ul>
+            </div>
+            {% assign letter_product = all_products['monorama-product-letters'] %}
+            {% assign letter_product_all_varaints = "" %}
+            <select id="letter_product" class="monorogam_add_pro" hidden>
+              <option value="">Select</option>
+              {% for variant in letter_product.variants %}
+              {% capture letter_product_all_varaints %}{% if letter_product_all_varaints != blank %}{{ letter_product_all_varaints }}|{% endif %}{{ variant.title }}{% endcapture %}
+              <option value="{{ variant.id }}" data-value="{{ variant.title }}" data-price="{{ variant.price }}">{{ variant.title }}</option>
+              {% endfor %}
+            </select>
+            <div class="cModal_item_parent" data-all_varaints = "{{ letter_product_all_varaints }}" data-select_id="letter_product">
+              {% for product_option in letter_product.options_with_values %}
+              <div class="cModal-item cModal-item-letters" data-type="{{ product_option.name }}" style="display: none;">
+                <div class="cModal-item-header">
+                  <h4 class="cModal-item-title">Select {{ product_option.name | capitalize }}</h4>
+                  {% if product_option.name == 'Color' %}
+                  <div class="cModal-color-label">
+                    <p class="cModal-color-name">{{ product_option.selected_value }}</p>
+                  </div>
+                  {% endif %}
+                </div>
+                {% if product_option.name == 'Color' %}
+                <ul class="cModal-options cModal-options-color">
+                  {% for value in product_option.values %}
+                  {% include 'color_code' with value %}
+                  <li class="cModal-list-item">
+                    <input id="option--{{ value }}--{{ forloop.index0 }}-letter" name="color_radio_letter" type="radio" value="{{ value }}" class="cModal-radio-input is_color" data-value="{{ color_code }}" data-option="{{ product_option.name }}" {% if product_option.selected_value == value %}checked="checked"{% endif %}>
+                    <label for="option--{{ value }}--{{ forloop.index0 }}-letter" class="cModal-color-swatch" data-label="{{ value }}" style="background-color: {{ color_code }}">
+                      <span class="visually-hidden">{{ value }}</span>
+                    </label>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                {% if product_option.name == 'Font' %}
+                <ul class="cModal-options cModal-options-font">
+                  {% for value in product_option.values %}
+                  <li class="cModal-list-item">
+                    <input id="option--{{ value }}--{{ forloop.index0 }}--letter" name="font_select" type="radio" value="{{ value }}" class="cModal-radio-input" data-value="{{ value | downcase }}" data-option="font" {% if product_option.selected_value == value %}checked="checked"{% endif %}>
+                    <label for="option--{{ value }}--{{ forloop.index0 }}--letter" class="cModal-radio cModal-font-radio">
+                      <span class="cModal-font-preview {% if value == 'Italic' %} script{% endif %} {{ value | downcase }}  {{ value | downcase }}-block">abc</span>
+                      <span class="cModal-font-name">{{ value }}</span>
+                    </label>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                <select class="product_variant_change" hidden>
+                  {% for value in product_option.values %}
+                  <option value="{{ value }}" {% if product_option.selected_value == value %}selected{% endif %}>
+                    {{ value }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="cModal-item cModal-item-letters" data-type="monogram" style="display: none;">
+              <div class="cModal-item-header">
+                <h4 class="cModal-item-title">Enter Text</h4>
+                <span>Up to 4 characters per field</span>
+              </div>
+              <ul class="cModal-options cModal-options-text">
+                <li class="cModal-list-item">
+                  <!--             <label for="Pillow 1" class="cModal-list-item-label">Pillow 1</label> -->
+                  <div class="cModal-inputWrapper" data-value="">
+                    <input type="text" required="" id="ABC" name="ABC" maxlength="4" data-index="0" data-label="ABC" placeholder="ABC" class="cModal-input text_input" data-option="monogram" autocomplete="off">
+                  </div>
+                </li>
+              </ul>
+            </div>
+            {% assign symbol_product = all_products['monorama-product-symbol'] %}
+            {% assign symbol_product_all_varaints = "" %}
+            <select id="symbol_product" class="monorogam_add_pro" hidden>
+              <option value="">Select</option>
+              {% for variant in symbol_product.variants %}
+              {% capture symbol_product_all_varaints %}{% if symbol_product_all_varaints != blank %}{{ symbol_product_all_varaints }}|{% endif %}{{ variant.title }}{% endcapture %}
+              <option value="{{ variant.id }}" data-value="{{ variant.title }}" data-price="{{ variant.price }}">{{ variant.title }}</option>
+              {% endfor %}
+            </select>
+            <div class="cModal_item_parent" data-all_varaints = "{{ symbol_product_all_varaints }}" data-select_id="symbol_product">
+              {% for product_option in symbol_product.options_with_values %}
+              <div class="cModal-item cModal-item-symbols">
+                <div class="cModal-item-header">
+                  <h4 class="cModal-item-title">Select {{ product_option.name | capitalize }}</h4>
+                  {% if product_option.name == 'color' %}
+                  <div class="cModal-color-label">
+                    <p class="cModal-color-name">{{ product_option.selected_value }}</p>
+                  </div>
+                  {% endif %}
+                </div>
+                {% if product_option.name == 'color' %}
+                <ul class="cModal-options cModal-options-color">
+                  {% for value in product_option.values %}
+                  {% include 'color_code' with value %}
+                  <li class="cModal-list-item">
+                    <input id="option--{{ value }}--{{ forloop.index0 }}-symbol" name="color_radio" type="radio" value="{{ value }}" class="cModal-radio-input is_color" data-value="{{ color_code }}" data-option="{{ product_option.name }}" {% if product_option.selected_value == value or forloop.first %}checked="checked"{% endif %}>
+                    <label for="option--{{ value }}--{{ forloop.index0 }}-symbol" class="cModal-color-swatch" data-label="{{ value }}" style="background-color: {{ color_code }}">
+                      <span class="visually-hidden">{{ value }}</span>
+                    </label>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                {% if product_option.name == 'symbol' %}
+                <ul class="cModal-options cModal-options-symbol">
+                  {% for value in product_option.values %}
+                  <li class="cModal-list-item">
+                    <input id="option--{{ value }}--{{ forloop.index0 }}" name="radio_symbol" type="radio" value="{{ value }}" class="cModal-radio-input" data-index="{{ forloop.index0 }}" data-value="{{ value }}" data-option="symbols" {% if product_option.selected_value == value or forloop.first %}checked="checked"{% endif %}>
+                    <label for="option--{{ value }}--{{ forloop.index0 }}" class="cModal-radio cModal-symbol">
+                      {% include 'icons' with value %}
+                    </label>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                <select class="product_variant_change" hidden>
+                  {% for value in product_option.values %}
+                  <option value="{{ value }}" {% if product_option.selected_value == value %}selected{% endif %}>
+                    {{ value }}
+                  </option>
+                  {% endfor %}
+                </select>
+                
+              </div>
+              {% endfor %}
+            </div>
+            
+            <input type="hidden" name="monogram_id" id="monogram_id" value="">
+          </div>
+          <button class="cModal-cta add_monogram">
+            <span>Add Monogram</span>
+            <span class="Button__SeparatorDot">.</span>
+            <span class="onchange_price">$25</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" name="properties[monogram_id]" value="">
+<input type="hidden" name="properties[Add Monogram]" value="">
+<input type="hidden" name="properties[Monogram Color]" value="">
+<input type="hidden" name="properties[Monogram Symbol]" value="">
+<input type="hidden" name="properties[Monogram Font]" value="">
+<input type="hidden" name="properties[Monogram Price]" value="">
+<input type="hidden" name="properties[Monogram Product ID]" value="">
+{% include 'monoroma_js' %}

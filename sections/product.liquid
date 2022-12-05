@@ -1,0 +1,71 @@
+{% assign product = all_products[section.settings.product] %}
+{% if product != blank %}
+<div class="product-item product-items" id="{{ product.id }}">
+  <div class="product-item-cover" id="p{{ product.id }}">
+    {% if product.images.size > 0 %}
+    <div class="product-image">
+      <a href="{{ product.url }}">
+        <img class="productImg" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.feautured_image.alt}}" />
+        {% if product.images.size > 1 %}
+        <img class="hoverImg" src="{{ product.images[1] | img_url: 'master' }}" alt="{{ product.feautured_image.alt}}" />
+        {% endif %}
+      </a>
+    </div>
+    {% endif %}
+    <div class="product-meta">
+      <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+      <p class="price">{{ product.price | money }}</p>
+      <div id="product-{{ product.id }}">
+        <form action="/cart/add" method="post" class="coll_form"  data-id="{{ product.selected_or_first_available_variant.id }}">
+          <!--         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"> -->
+          <select id="product-select_{{ product.id }}" name="id">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }}</option>
+            {% endfor %}
+          </select>
+          <div class="swatch_display">
+            {% if  product.variants.size > 1 %}
+            {% for option in product.options %}
+            {% include 'swatch' with option , index: product.id , coll: true %}
+            {% endfor %}
+            {% endif %}
+          </div>
+          <input type="hidden" name="qyantity" value ="1" >
+          <div class="add-to-cart">
+            <button name="add" type="submit" class="addcart_button" id="add-to-cart_{{ product.id }}">Add to Cart</button>
+          </div>
+          <div>
+            <a href="{{ product.url }}"   class="quickview" >Quick View</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+	{
+	"type":"product",
+	"id":"product",
+	"label":"product"
+}
+],
+	"presets": [
+		{
+			"name": "product",
+			"category": "product"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,13 @@
+<script> 
+{% if settings.free_1 != blank or  settings.free_2 != blank or settings.free_3 != blank  %}  
+  {% assign p = '' %}
+  {% for i in (1..3) %}
+  {% capture free %}free_{{ i }}{% endcapture %}
+  {% capture p %}{% if p != blank %}{{ p }}|{% endif %}{{ settings[free] }}{% endcapture %}
+  {% endfor %}
+  {% assign pros = p | split:'|' %}
+  {% for product in pros %}
+	console.log('{{ all_products[product].title }}');
+  {% endfor %}
+  {% endif %}
+</script>

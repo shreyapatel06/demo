@@ -1,0 +1,203 @@
+<section class="cart-section {% if cart.item_count == 0 %}empty_cart{% else %}full_cart{% endif %} ">
+  <div class="container">
+    <div class="empty_cart_contain" style="color:#000;font-size: 46px;font-weight: 900;justify-content: center;">You have nothing in your cart.</div>
+    <form class="cart" action="/cart" method="post">
+      <div class="row">
+        <div class="full">
+          <div class="cart-list">
+            <div class="row heading">
+              <div class="image">Image</div>
+              <div class="desc">Product</div>  
+              <div class="price">Price</div>
+              <div class="qty">QTY</div>
+              <div class="total">Total</div>
+              <div class="remove">remove</div>
+            </div>
+            <div class="cart-body">
+              {% for item in cart.items %}
+              <div class="row cart_item {{ item.id }} {{ item.properties["monogram_product"] }}" data-id="{{ item.id }}" >
+                <div class="image">
+                  <div class="cart-img">
+                    {% if item.image %}
+                    <a href="{{ item.product.url }}">
+                      <img src="{{ item.product.images.first | img_url:'small' }}" alt="Product Name">
+                    </a> 
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="desc">
+                  <div class="item-info">
+                    <p><a href="{{ item.product.url }}">{{ item.title }}</a></p>
+                    <p><a href="{{ item.product.url }}">{{ item.product.content | truncate:100 }}</a></p>
+                    <p>{% assign property_size = item.properties | size %}
+                      {% if property_size > 0 %}
+                      {% for p in item.properties %}
+                      {% unless p.last == blank or p.first == "_alpaca_id" or p.first == "monogram_id" %}
+                      <span class="propertie_span">{{ p.first }}:
+                      {% if p.last contains '/uploads/' %}
+                      <img src="{{ p.last }}" class="cart_propertie_image">
+<!--                       <a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a> -->
+                      {% else %}
+                      {% if p.first == 'Selected Option' %}
+                      <img src="{{ p.last }}" class="cart_propertie_image">
+                      {% else %}
+                      {{ p.last }}
+                      {% endif %}
+                      {% endif %}
+                      </span>	
+                      {% endunless %}
+                      {% endfor %}
+                      {% endif %}
+                    </p>
+                  </div>
+                  {% if item.line_level_discount_allocations.size > 0 %}
+                  
+                  {% for discount_allocation in item.line_level_discount_allocations %}
+<!--                   {{ discount_allocation.discount_application.title }} -->
+                    -{{ discount_allocation.amount | money }}
+                    {% endfor %}
+                  {% endif %}                  
+                </div>
+
+                <div class="price">{{ item.price | money }}</div>
+                <div class="qty">
+                  <input type="text" class="cart-input"  id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}">
+                </div>
+                <div class="total">
+                  {% assign count=item.quantity %}
+                  {{ item.price | times:count | money }}
+                </div>
+                <div class="remove"><a href="/cart/change?line={{ forloop.index }}&quantity=0"><img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/close-icon.svg?v=1598246447" alt=""></a></div>
+              </div>
+              {% if item.properties["monogram_id"] != blank %}
+              {% assign monogram_id =  item.properties["monogram_id"] %}
+<!--               {{ all_products[monogram_id] }} -->
+              {% endif %}
+              
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cart-button">
+        <div class="button" style="padding-right: 33px;"><a href="/cart/clear" style="color:#fff" class="btn edit">Empty Cart</a></div>
+        <div class="button"><input type="submit" class="btn edit" value="Update Cart"></div>
+      </div>
+      {% section 'cart_other_donation' %}
+      
+      <div class="cart-content">
+        <div class="row">
+          <div class="col-left half">
+            <div class="cart-left-col">
+              <h3>Note:</h3>
+              <div class="coupon-content-col">
+                <textarea name="note">
+                  {{ cart.note }}
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-right half">
+            <div class="cart-right-col">
+              <h3>Cart Total</h3>
+              <div class="cart-content-col">
+                <div class="cart-grant-total">
+                  <h5>Order Total:<span class="cart_total">{{ cart.total_price | money }}</span></h5>
+                </div>
+                <div class="complete-order">
+                  <a href="/products" class="btn shop-btn">Continue Shopping</a>
+                  <div class="button"><input type="submit" class="btn edit" value="Checkout" name="checkout"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% render 'delivery-date' %}
+<!--       <div class="alpaca-injection"></div> -->
+  
+    </form>
+  </div>
+</section>
+{% section 'cart-product' %}
+<!-- <div>
+{% assign handle = "" %}
+  {% for item in cart.items %}
+{% for tag in  item.product.tags %}
+{% if tag contains '@' %}
+{% assign split_tag = tag | split: '@' | last %}
+{% capture handle %}{% if handle != blank %}{{handle}}|{% endif %}{{split_tag}}{% endcapture %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+  {% assign handle = handle | split:'|' | uniq %}
+  {% for h in handle %}
+  {% assign product=all_products[h] %}
+  {{ product.title }}++++
+  <img src="{{ product.featured_image | img_url:'medium' }}">
+  {% endfor %}
+</div> -->
+
+
+<style>
+  .empty_cart_contain{
+    display:none;
+  }
+  body.cart{
+    display:block;
+  }
+  .cart{
+    display:none;
+  }
+  .cart-section.empty_cart .empty_cart_contain{
+    display:flex;
+  }
+  .cart-section.full_cart .cart{
+    display:block;
+  }
+  .cart-body .cart-img img{
+    max-width:50%;
+  }
+</style>
+
+
+<script>
+  Shopify.money_format = "{{ shop.money_format }}";  
+
+
+  $('body').on("click",".addcart",function(e){
+    e.preventDefault();
+    var id =  $(this).data("id");
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      data: "id="+id+"&quantity=1",
+      url: "/cart/add.js",
+      async: false
+    }).done(function(data){
+      $.getJSON('/cart.js', function(c){
+        if($('.cart-section').hasClass("empty_cart")){
+          $('.cart-section').removeClass("empty_cart");
+          $('.cart-section').addClass("full_cart");
+        }
+        var href='/cart?view=cart_append';
+        $.get(href,function(data){
+          $('.cart-body').html(data);        	
+        });
+        $('.cart_total').html(Shopify.formatMoney(c.total_price, '{{ shop.money_format }}'));
+                                                  });
+                              $('html, body').animate({
+          scrollTop: $(".cart-section").offset().top
+        }, 500);
+      });
+    });
+
+
+
+</script>
+
+{% render 'nosto-element', id:'cartpage-nosto-1' %}
+
+{% render 'nosto-element', id:'cartpage-nosto-2' %}
+
+{% render 'nosto-element', id:'cartpage-nosto-3' %}

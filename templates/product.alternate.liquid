@@ -1,0 +1,93 @@
+{% layout 'none' %}
+  <section class="page-header dataBg" data-bg-src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/shop-header.png?v=1598094715">
+    <div class="container">
+      <h2 class="h1 text-center color4">Shop</h2>
+    </div>
+  </section>
+  <section class="product-section">
+    <div class="container">
+      <div class="row">
+        <div class="product-gallery half">
+          <div class="product-images">
+            {% for media in product.media %}
+            {% case media.media_type %}
+            {% when 'image' %}
+            <div class="image-slide image-slide1">
+              <img src="{{ media | img_url:'master' }}" alt="{{ media.alt }}" class="block__pic">
+            </div>
+            {% when 'external_video' %}
+            <div class="image-slide youtube">
+              {{ media  | external_video_tag:  class: "youtube_video", id:"1_" }}
+            </div>
+            {% when 'video' %}
+            <div class="image-slide video">
+              {{ media | video_tag: controls: true , class: "video1" }}
+            </div>
+            {% when 'model' %}
+            <div class="image-slide">
+              {{ media | model_viewer_tag }}
+            </div>
+            {% else %}
+            <div class="image-slide">
+              {{ media | media_tag }}
+            </div>
+            {% endcase %}
+            {% endfor %}
+          </div>
+          <div class="product-thumbs">
+            {% for media in product.media %}
+            {% case media.media_type %}
+            {% when 'video' %}
+            <div class="image-slide">
+              {{ media | video_tag: controls: false , class: "video2"}}
+            </div>
+            {% else %}
+            <div class="image-slide">
+              <img src="{{ media | img_url:'350x350' }}" alt="{{ media.alt }}">
+            </div>
+            {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="product-content half">
+          <div class="product-content-cover">
+            <h1 class="h2 color6">{{ product.title }}</h1>
+            <div class="product-form">
+              {% if product.options.size <= 1  %}
+              {% include 'product-form' %}
+              {% elsif product.options.size > 1 %}
+              {% include 'product-order-form' %}
+              {% endif %}
+            </div>
+            <div class="product-description">
+              <h5 class="accordion-heading">DESCRIPTION</h5>
+              <div class="desc accordion-content">
+                <p>{{ product.description }}</p>
+              </div>
+             
+              {% assign materials = product.metafields.materials.material %}
+              {% if materials != blank %}
+              <h5 class="accordion-heading">Materials</h5>
+              <div class="desc accordion-content">
+                {% assign m =  materials | split: ',' | uniq %}
+                <div class="product-description custom">
+                  {% for i in m %}
+                  <h5 class="accordion-heading">{{ i }}</h5>
+                  <div class="desc accordion-content">
+                    {{ shop.metafields.materials_desc[i] }}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>   
+
+
+
+
+

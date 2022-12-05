@@ -1,0 +1,15 @@
+{% if section.settings.page != blank %}
+{{ pages[ section.settings.page].content }}
+{% endif %}
+{% schema %}
+  {
+    "name": "Product",
+    "settings": [
+		{
+			"type":"page",
+			"id":"page",
+			"label":"Page"
+		}
+	]
+  }
+{% endschema %}

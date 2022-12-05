@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-template",
+      "blocks": {
+        "3606331e-96be-434f-9836-91893bae4058": {
+          "type": "block",
+          "settings": {
+            "liquid1": "{{collection.metafields.new.text[0]}}"
+          }
+        },
+        "047d6bfa-ecb9-4c6a-93dc-55c904876398": {
+          "type": "block",
+          "settings": {
+            "liquid1": "{{collection.metafields.new.text}}"
+          }
+        }
+      },
+      "block_order": [
+        "3606331e-96be-434f-9836-91893bae4058",
+        "047d6bfa-ecb9-4c6a-93dc-55c904876398"
+      ],
+      "settings": {
+        "liquid": "{{collection.metafields.new.text}}",
+        "show_filter": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

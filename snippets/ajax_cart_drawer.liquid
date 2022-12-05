@@ -1,0 +1,113 @@
+<script id="mini_cart" type="text/x-handlebars-template">
+{% raw %}
+<div class="overlay"></div>
+<div class="cart-popup active cart-list " data-section="mini-cart">
+  
+  
+  <div class="cp-container">
+    <div class="cart-top">
+      <div class="cart-head flexbox justify-between align-center">
+        <h2>Cart</h2>
+        <div class="close-cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="25" viewBox="0 0 26 25"><g><g><path fill="#fff" d="M25.18 2.429L22.644-.107 12.59 9.946 2.536-.107 0 2.429l10.054 10.053L0 22.536l2.536 2.536L12.59 15.018l10.054 10.054 2.536-2.536-10.054-10.054z"/></g></g></svg>
+        </div>
+      </div>
+     
+
+      
+      
+      <div class="cart-content">
+      {{#items}}
+        <div class="cart-content-block flexbox item_{{id}} {{#if monogram_product}} {{monogram_product}} {{/if}}" data-price="{{price}}">
+          {{#if img}}
+          <div class="cart-img flexbox align-center justify-center">
+            <img src="{{img}}" alt="{{name}}">
+          </div>
+          {{/if}}
+          <div class="cart-detail">
+            <h6><a href="{{url}}">{{title}}</a><br>
+              
+              {{#if options}}
+              	<div style="font-size:12px;">	
+              	{{#options}}
+                	<span>{{name}}{{#iff name '==' 'color'}}:::{{/iff}}: {{value}}</span><br>
+              	{{/options}}
+                </div>
+              {{/if}}
+              
+            </h6>
+            {{#if discountsApplied}}
+            	<p>{{price}}---{{discountedPrice}}</p>
+            {{else}}
+            	<p>{{price}}</p>
+            {{/if}}
+            {{#properties}}
+            	{{#each this}}
+                	{{#if this}}
+                    	{{#three_iff @key '!=' 'Monogram Product ID' '&&' @key '!=' 'Monogram Price' '&&' @key '!=' 'Add Monogram' }}
+                    	<p>	
+                        	<span class="propertie_span"><strong>{{@key}}:</strong> 	
+                                {{#three_iff @key '==' 'file_2' '||' @key '==' 'file' '||' @key '==' 'file_1' }}
+                                  <img src="{{this}}" class="cart_propertie_image">
+                                {{else}}
+                                  {{this}}
+                                {{/three_iff}}
+          					</span>
+  						</p>
+                        {{/three_iff}}
+              		{{/if}}
+              	{{/each}}
+            {{/properties}}
+            
+            <div class="quantity-btns flexbox align-center justify-center qty">
+            	<input type="number" class="cart-input"  id="updates_{{id}}" name="updates[]" value="{{quantity}}" data-line="{{index}}" data-item_id="{{id}}" {{#if monogram_product_ID }}data-monogram_product_ID="{{monogram_product_ID}}"{{/if}}>
+  			</div>
+            
+          </div>
+          <div class="remove" data-line="{{index}}" data-item_id="{{id}}" {{#if monogram_product_ID }}data-monogram_product_ID="{{monogram_product_ID}}"{{/if}}>
+            <img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/close-icon.svg?v=1598246447" alt="remove-icon"/>
+          </div>
+        </div>
+        {{/items}}
+      </div>
+    </div>
+    <div class="cart-bottom">
+      <div class="cart-bottom-head flexbox justify-between align-center">
+        <h4 class="cart-bottom-h4">Subtotal:</h4>
+        <h4 class="cart-bottom-h4">{{total_price}}</h4>
+      </div>
+      <div class="button" style="padding-right: 33px;"><button class="btn edit"><a href="/cart" style="color:#fff">View Cart</a></button></div>
+    </div>
+  </div>
+</div>
+
+{% endraw %}
+</script>
+<script id="mini_cart_empty" type="text/x-handlebars-template">
+{% raw %}
+<div class="overlay"></div>
+<div class="cart-popup active cart-list " data-section="mini-cart">
+  
+  
+  <div class="cp-container">
+    <div class="cart-top">
+      <div class="cart-head flexbox justify-between align-center">
+        <h2>Cart</h2>
+        <div class="close-cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="25" viewBox="0 0 26 25"><g><g><path fill="#fff" d="M25.18 2.429L22.644-.107 12.59 9.946 2.536-.107 0 2.429l10.054 10.053L0 22.536l2.536 2.536L12.59 15.018l10.054 10.054 2.536-2.536-10.054-10.054z"/></g></g></svg>
+        </div>
+      </div>
+     
+
+      
+      
+      <div class="cart-content">
+      	Cart is empty.
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{% endraw %}
+</script>

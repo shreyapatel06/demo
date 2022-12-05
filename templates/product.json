@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "blocks": {
+        "Block1": {
+          "type": "block",
+          "settings": {
+            "text1": "{{ product.metafields.new_name.new_meta.value }}"
+          }
+        },
+        "price": {
+          "type": "price_block",
+          "settings": {
+            "price1": "Price1111111111111"
+          }
+        },
+        "price2": {
+          "type": "price_block",
+          "settings": {
+            "price1": "Price222222222222222222222"
+          }
+        }
+      },
+      "block_order": [
+        "Block1",
+        "price",
+        "price2"
+      ],
+      "settings": {
+        "liquid": "{% if product.handle == 'kurta' %}{{ product.title }}\n{% endif %}"
+      }
+    },
+    "product_recomondation": {
+      "type": "product_recomndation",
+      "settings": {
+      }
+    },
+    "ss": {
+      "type": "ss",
+      "disabled": true,
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product_recomondation",
+    "ss"
+  ]
+}

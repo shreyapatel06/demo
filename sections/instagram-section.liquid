@@ -1,0 +1,95 @@
+
+<section class="instagram-section">
+  <div class="container">
+    {% if section.settings.text != blank %}
+    <h2 class="h3 text-center color3">{{ section.settings.text }}<span class="social-icons">
+      <a href="{{ section.settings.facebook_link }}" class="social-icon"><img src="https://cdn.shopify.com/s/files/1/0427/3936/8087/files/facebook-logo.svg?v=1610968480" alt="Facebook"></a>
+      <a href="{{ section.settings.instagram_link }}" class="social-icon"><img src="https://cdn.shopify.com/s/files/1/0427/3936/8087/files/instagram-logo.svg?v=1610968505" alt="Facebook"></a>
+      </span>
+    </h2>
+    {% endif %}
+    <div class="row instagram-gallery">
+      {% for block in section.blocks %}
+      {% if block.type == 'instagram' %}
+      {% if block.settings.image != blank %}
+      <div class="insta-item five"><a href="#"> <img src="{{ block.settings.image | img_url: "master" }}" alt="Instagram"></a></div>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="footer-contact">
+      {% if section.settings.textarea1 != blank %}
+      <div class="contact-col">
+        {{ section.settings.textarea1 }}
+      </div>
+      {% endif %}
+      {% if section.settings.image != blank %}
+      <div class="footer-logo">
+        <a href="{{ shop.url }}"><img src="{{ section.settings.image | img_url: "master" }}" alt="Oasis"></a>
+      </div>
+      {% endif %}
+       {% if section.settings.textarea2 != blank %}
+      <div class="contact-col">
+        {{ section.settings.textarea2 }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Instagram",
+    "settings": [
+		{
+			"type": "text",
+			"id": "text",
+			"label": "Select Text"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Footer Logo Image"
+		},
+		{
+			"type": "textarea",
+			"id": "textarea1",
+			"label": "Paragraph"
+		},
+		{
+			"type": "textarea",
+			"id": "textarea2",
+			"label": "Paragraph"
+		},
+		{
+			"type":"url",
+			"id":"facebook_link",
+			"label":"Facebook Link"
+		},
+		{
+			"type":"url",
+			"id":"instagram_link",
+			"label":"Instagram Link"
+		}
+	],
+	"blocks": [
+		{
+			"type": "instagram",
+			"name": "instagram",
+			"limit":5,
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Select Image"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Socialize Section",
+			"category": "Socialize Section"
+		}
+	]
+  }
+{% endschema %}

@@ -1,0 +1,85 @@
+<form action="/cart/add" method="post" class="add_to_cart" id="add_to_cart">
+  <div class="price-qty flex">
+    <h3 class="color6" id="price-preview">{{ product.price | money }}</h3>
+  </div>
+   <div class="select clearfix" style="display:none">
+    <select id="product-select" name='id'>
+      {% for variant in product.variants %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+      {% endfor %}
+    </select>
+    {% if product.available and product.variants.size > 1 %}
+    {% for option in product.options %}
+    {% include 'swatch' with option %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="border_variants border">
+    {% for variant in product.variants %}
+    <div class="row">
+      <div>
+        <p>
+          {% for option in product.options %}
+          {% assign index = forloop.index0 %}
+          <span>{{ variant.options[index] | capitalize }}</span> in {{ option | capitalize }} {% unless forloop.last %}and {% else %}<br>{% endunless %}
+          {% endfor %}
+        </p>
+        <label>{{ variant.price | money }}</label>
+      </div>
+      <div>
+        <div class="qty">
+          <a class="minus qty_adjust">-</a>
+          <input type="text"  value="1" name="quantity" id="qty" data-id="{{ variant.id }}" class="quantity" readonly>
+          <a class="plus qty_adjust">+</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div> 
+  <div class="add-to-cart-button button6">
+    <button id="add-to-cart" class="cart_oreder_add">ADD TO CART</button>
+  </div>
+</form>
+<style>
+  .row{
+    justify-content: space-between;
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    $('.qty:gt(0)').css("display","none");
+    $('body').on("click",".qty_adjust",function(e){
+      var qty = $(this).parents('.qty').find("input").val();
+      $('.border_variants').find('.qty').find("input").val(qty);
+    });
+    $("body").on("click",".cart_oreder_add",function(e){
+      e.preventDefault();
+      $('.cart_oreder_add').text("Adding....."); 
+      var all = $('.border_variants').find(".quantity");
+      var qty = $('.border_variants').find('.qty').find("input").val();
+      $.when(
+        $.each(all,function(i,val){
+          console.log(val);
+          var id = $(val).data("id");
+          console.log(id);
+          $.ajax({
+            type: "POST",
+            url: "/cart/add.js",
+            dataType: "JSON",
+            data: "id="+id+"&quantity="+qty,
+            async: false
+          });
+        })
+      ).then(function(){
+        console.log(111);
+        setTimeout(function(){
+          $('.cart_oreder_add').text("Added");
+        },5000);
+        setTimeout(function(){
+          $('.cart_oreder_add').text("ADD TO Cart");
+        },8000);
+        //window.location.assign("/cart");
+      });
+    });
+  });
+</script>

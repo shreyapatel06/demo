@@ -1,0 +1,138 @@
+<script>
+  $(document).ready(function(e){
+    var money_format = "{{ shop.money_format }}"; 
+    
+    function price_change(_this){
+      var id = _this.val();
+      var price = _this.find('option[value="'+id+'"]').data("price");
+      $('.onchange_price').html(Shopify.formatMoney(price,money_format));
+      $('input[name="properties[Monogram Price]"]').val(price);
+    }
+    
+    
+    function product_variant_change(_this){
+      console.log("ssssssssssssssssssssssssssssssss");
+      var vals = [];
+      var _this = _this;
+      var all_variants = _this.parents('.cModal_item_parent').data('all_varaints').split('|');
+      var all_options = _this.parents('.cModal_item_parent').find('.product_variant_change');
+      var select_id = '#'+_this.parents('.cModal_item_parent').data('select_id');
+      $.each(all_options,function(index,val){
+        vals.push($(val).val());
+      });
+      vals= vals.join(" / ");
+      console.log(vals);
+
+      if(all_variants.indexOf(vals) != -1){
+        var v = $(select_id).find('option[data-value="'+vals+'"]').val();
+        $(select_id).val(v);   
+        price_change($(select_id));
+        $('input[name="monogram_id"]').val(v);
+      }else{
+        alert("variant not available");
+      }
+    }
+  
+    
+    function change_input(_this){
+      var value = _this.val();
+      _this.parents('.cModal-item').find('.product_variant_change').val(value);
+      if(_this.hasClass('is_color')){
+        _this.parents('.cModal_item_parent').find('.cModal-color-swatch').closest('li.cModal-list-item').find('input').removeAttr("checked");
+        _this.closest('li.cModal-list-item').find('input').attr("checked","checked");
+        var color = _this.closest('li.cModal-list-item').find('input').data("value");
+        var color_name = _this.closest('li.cModal-list-item').find('input').val();
+        $('.cModal-color-name').html(color_name);
+        if($('.cModal-monogramSymbol').find('span').find('svg')){
+          $('.cModal-monogramSymbol').find('span').find('svg').css('color',color);
+        }
+        $('.cModal-monogramSymbol').find('span').css('color',color);
+      }
+      console.log("chnage input");
+    }
+    
+    $('body').on("click",".add_monogram, .cModal-close",function(e){
+      $('.cModal').toggleClass("active");
+      var current = $(".cModal-options-type input[type='radio'][name='radio_for_name']").val().toLowerCase();
+      $.each($('.cModal-item-'+current).find('.cModal-radio-input:checked'),function(index,val){
+        change_input($(val));  
+      });
+    });
+    
+    $('body').on('click',".cModal-symbol",function(e){
+      $('.cModal-monogramSymbol').find('span').html($(this).html());
+    });
+    $('body').on("change",".cModal-options-type input[type='radio'][name='radio_for_name']",function(e){
+      var value = $(this).val().toLowerCase();
+      $('.cModal-item:not([data-type="type"])').hide();
+      $('.cModal-item-'+value).show();
+      product_variant_change($('.cModal-item-'+value).find('.product_variant_change'));
+      $.each($('.cModal-item-'+value).find('.cModal-radio-input:checked'),function(index,val){
+        change_input($(val));  
+      });
+    });
+    $('body').on("keyup",".text_input",function(e){
+      var val = $(this).val();
+      $('.cModal-monogramSymbol').find('span').html(val);
+    });
+    $('body').on("change","input[name='font_select']",function(e){
+      var value = $(this).val();
+      if(value == 'italic'){
+        $('.cModal-monogramSymbol').addClass('italic');
+        $('.cModal-monogramSymbol').removeClass('classic');
+      }else if(value == 'classic'){
+        $('.cModal-monogramSymbol').removeClass('italic');
+        $('.cModal-monogramSymbol').addClass('classic');
+      }
+    });
+    
+    
+    $('body').on("change",".cModal-radio-input",function(e){
+      console.log("=================");
+      var _this = $(this);
+      var value = _this.val();
+      _this.parents('.cModal-item').find('.product_variant_change').val(value);
+      if(_this.hasClass('is_color')){
+        _this.parents('.cModal_item_parent').find('.cModal-color-swatch').closest('li.cModal-list-item').find('input').removeAttr("checked");
+        _this.closest('li.cModal-list-item').find('input').attr("checked","checked");
+        var color = _this.closest('li.cModal-list-item').find('input').data("value");
+        var color_name = _this.closest('li.cModal-list-item').find('input').val();
+        $('.cModal-color-name').html(color_name);
+        if($('.cModal-monogramSymbol').find('span').find('svg')){
+          $('.cModal-monogramSymbol').find('span').find('svg').css('color',color);
+        }
+        $('.cModal-monogramSymbol').find('span').css('color',color);
+      }
+      product_variant_change(_this.parents('.cModal-item').find('.product_variant_change'));
+    });
+
+   
+    
+                      
+//     $('body').on('change',".product_variant_change",function(e){
+//       product_variant_change($(this));
+//     });
+    
+    
+    $('body').on("click",".add_monogram",function(e){
+      var monogram_id = $('input[name="monogram_id"]').val();
+      $('.add_monogram').addClass("active_monogram");
+      $('input[name="properties[Add Monogram]"]').val("yes");
+      var letter_or_symbol = $('input[name="radio_for_name"]:checked').val(); 
+      console.log(letter_or_symbol);
+      if(letter_or_symbol == 'Letters'){
+        $('input[name="properties[Monogram Symbol]"]').val('');
+        $('input[name="properties[Monogram Font]"]').val($('input[name="font_select"]:checked').val());
+        $('input[name="properties[Monogram Color]"]').val($('input[name="color_radio_letter"]:checked').val());
+      }else if(letter_or_symbol == 'Symbols'){
+        $('input[name="properties[Monogram Symbol]"]').val($('input[name="radio_symbol"]:checked').val());
+        $('input[name="properties[Monogram Font]"]').val('');
+        $('input[name="properties[Monogram Color]"]').val($('input[name="color_radio"]:checked').val());
+      }
+      console.log(monogram_id);
+      
+    });
+    
+    
+  });
+</script>

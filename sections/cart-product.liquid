@@ -1,0 +1,54 @@
+{% if section.blocks != blank %}
+<div class="row products grid-4 text-center cart_products" id="products">
+  {% for block in section.blocks %}
+  {% if block.settings.coll != blank %}
+  {% assign collection = collections[block.settings.coll] %}
+  {% for product in collection.products %}
+  {% include 'product_item_1' %}
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+
+{% schema %}
+{
+	"name":"Cart-Product Section",
+	"settings":[
+	],
+	"blocks":[
+		{
+			"type":"collection",
+			"name":"Collection",
+			"settings":[
+				{
+					"type":"collection",
+					"id":"coll",
+					"label":"Select Collection"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+<script>
+//   $("body").on("click",".cart_products .addcart_button",function(e){
+//     console.log("1111");
+//     var url = '/cart';
+//     window.history.pushState(null,null,url);
+//     console.log(url);
+//     $.ajax({
+//       url:url,
+//       type:'GET',
+//       success: function(data){
+//         var html = $(data).find('.cart-section').html();
+//         $('body').find('.cart-section').html(html);
+//       }
+//     }).done(function(){
+//       $('html, body').animate({
+//         scrollTop: $(".cart-section").offset().top
+//       }, 5000);
+//     });
+//   });
+</script>

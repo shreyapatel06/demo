@@ -1,0 +1,167 @@
+{% comment %}
+  Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+
+<div class="swatch_display">
+{% assign file_extension = 'png' %}
+
+{% if swatch == blank %}
+<div class="swatch error">
+  <p>You must include the snippet swatch.liquid with the name of a product option.</p> 
+  <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+  <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+</div>
+{% else %}
+
+{% assign found_option = false %}
+{% assign is_color = false %}
+{% assign option_index = 0 %}
+
+
+{% for option in product.options %}
+  
+  {% if option == swatch %}
+    {% assign found_option = true %}
+    {% assign option_index = forloop.index0 %}
+  
+    <style>
+      label[for="product-select-option-{{ option_index }}"] { display: none; }
+      #product-select-option-{{ option_index }} { display: none; }
+      #product-select-option-{{ option_index }} + .custom-style-select-box { display: none !important; }
+    </style>
+    <script>
+      
+      
+      $(window).on('load', function(){
+      	 var option_select = ".selector-wrapper:eq("+{{ option_index }}+")"; 
+        $(option_select).hide(); 
+        {% if index %}
+        $('#{{ index }}').find(option_select).hide(); 
+        {% endif %}
+      });
+      
+      /*	$(window).load(function() { 
+        var option_select = ".selector-wrapper:eq("+{{ option_index }}+")"; 
+      //  alert(option_select);
+        $(option_select).hide(); 
+      });*/
+      
+      
+  	</script>
+    {% assign downcased_option = swatch | downcase %}
+    {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+      {% assign is_color = true %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% unless found_option %}
+<div class="swatch error">
+  <p>You included the snippet swatch.liquid with the name of a product option — <code>'{{ swatch }}'</code> — that does not belong to your product.</p>
+  <p>Use <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+  <p>Example: <code>{% raw %}{% include 'swatch' with 'color' %}{% endraw %}</code></p>
+  <p><strong>This is case-sensitive!</strong> Do not put in <code>'color'</code> if your product option name is <code>'Color'</code>.</p>
+</div>
+{% else %}
+<div class="swatch clearfix " data-option-index="{{ option_index }}"  data-value="{{ option }}">
+  <div class="header option_title">{{ swatch }}<span></span></div>
+  {% assign values = '' %}
+  
+  {% assign p = 1 %}
+  
+  {% for variant in product.variants %}
+  {% assign value = variant.options[option_index] %}
+  
+  {% if coll == true and  p == 4 %}
+  {% assign v_size = product.options_by_name[option].values %}
+  <a href="{{ product.url }}" class="more_a"><b>{{  v_size | size | minus: p | plus: 1 }}+ MORE</b></a>
+  {% break %}
+  {% endif %}
+  
+  
+  
+  {% unless values contains value %}
+  {% assign values = values | join: ',' %}
+  {% assign values = values | append: ',' | append: value %} 
+  {% assign values = values | split: ',' %}
+  {% capture option_label_id %}swatch-{{ option_index }}-{{ value | handle }}{% endcapture %}
+  {% if from_qv %}
+  {% capture option_label_id %}swatch-{{ option_index }}-{{ value | handle }}-from_qv{% endcapture %}
+  {% endif %}
+  {% if index %}
+  {% capture option_label_id %}swatch-{{ option_index }}-{{ value | handle }}-{{ index }}{% endcapture %}
+  {% endif %}
+      <div data-value="{{ value | escape }}" class="swatch-element {% if variant.available %}available{% else %}soldout{% endif %} {{ value | handle }} {% if is_color %}color{% endif %} ">
+        
+        {% assign p = p | plus: 1 %}
+        
+        {% if is_color %}
+<!--         <div class="tooltip">{{ value }}</div> -->
+        {% endif %}
+        <input id="{{ option_label_id }}"   type="radio" class="checked swatch_input {% if bundle == true %}bundle{% endif %} {{ variant.id }} {% if variant.image %}check_image{% endif %}"  data-checked="" id="product-select_{{ product.id }}"  name="option-{{ product.id }}-{{ option_index }}" data-id="{{ variant.id }}" value="{{ value | escape }}"  {% unless variant.available %}disabled="disabled"{% endunless %} data-metafield='{{ variant.metafields.choice.choice  | join:',' }}' data-metafield_title='{{ variant.metafields.choice.text | join:',' }}'/>
+        {% if is_color %} 
+        {% if variant.image %}
+        <label for="{{ option_label_id }}" data-value="{{value}}" data-shadow="5px 5px 2px 0px {{ value | split: ' ' | last | handle }}" data-color="{{ value | split: ' ' | last | handle }}" style=" background-image: url('{{ variant.image | img_url:"small" }}'); " data-url="{{ variant.url }}">
+          <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+        </label>
+        {% else %}
+        <label for="{{ option_label_id }}"  data-value="{{value}}" data-shadow="" data-color="{{ value | split: ' ' | last | handle }}" style="background-color: {{ value | split: ' ' | last | handle }};" data-url="{{ variant.url }}">
+          <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+        </label>
+        {% endif %}
+        {% else %}
+        <label for="{{ option_label_id }}" data-value="{{value}}" data-shadow="" data-url="{{ variant.url }}" data-id="{{ variant.id }}">
+          {{ value }}
+          <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+        </label>
+        {% endif %}
+      </div>
+    {% endunless %}
+  
+
+  
+    {% if variant.available %}
+    <script>
+      jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+    </script>
+    {% endif %}
+  {% endfor %}
+</div>
+  <span class="msg_print"></span>
+{% endunless %}
+
+{% endif %}
+</div>
+
+
+<script>                                 
+ $('body').on("click",".swatch-element label",function(){
+//    var value=$(this).attr('data-value');
+//   // alert(value);	
+//    $(this).parents('.swatch').find('.option_title span').html(' : '+value);
+   
+// /*
+//     {% if template contains 'collection' %}
+//     	var url=$(this).attr('data-url');
+//     	window.location.assign(url);
+//     {% endif %}
+//    */ 
+//    $('.swatch').find('input').attr('data-checked',"checked");
+//     $(this).parents('.swatch').parent().find('.msg_print').text(" ");
+
+// //    $('.swatch-element input[type=radio]:checked').trigger("click");
+   
+ });   
+  
+  
+</script>
+<style>
+ 
+</style>
+
+
+
+
+
+
+

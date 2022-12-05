@@ -1,0 +1,119 @@
+<div class="flex row space-between">
+  <div class="">
+    <button class="click_video" data-type="video">start video</button>
+    <button class="click_video" data-type="vimeo">start vimeo</button>
+    <button class="click_video" data-type="youtube" id="video_btn">start youtube</button>
+  </div>
+  <div class="">
+    <button class="click_video_stop" data-type="video">stop video</button>
+    <button class="click_video_stop" data-type="vimeo">stop vimeo</button>
+    <button class="click_video_stop" data-type="youtube" id="close_video">stop youtube</button>
+  </div>
+</div>
+
+<div id="popup_box" class="overlay_popup custom_popup_show each-video" data-id="each_v_">
+  <div class="popup_inner">
+    <div class="content">
+      <div class="flex  row center space-between videotype">
+        <div class="three">
+          <iframe class="vimeo_frame videoFrame"  id="vimeo_frame" allow="autoplay"  frameborder="0" allowfullscreen="1"  title="YouTube video player"  src="https://player.vimeo.com/video/266101600?api=1&title=0&byline=0&portrait=0&transparent=0&muted=1&loop=1&autolpay=1&controls=0"></iframe>
+        </div> 
+        <div class="three">
+          <iframe class="youtube_frame videoFrame"  id="video_image" src="https://www.youtube.com/embed/aqz-KE-bpKQ?enablejsapi=1&controls=0&loop=1&playlist=aqz-KE-bpKQ&mute=1&widgetid=1&disablekb=1&autohide=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe> 
+        </div> 
+        <div class="three">
+          <video class="video_iframe videoFrame" loop="loop" muted="muted" autoplay="autoplay">
+            <source src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/Clouds.mp4?v=1627474900" type="video/mp4" >
+          </video>
+          <!--       muted autoplay="autoplay" controls -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  /* for control on mouse hover and mouse event off  */
+  #video_image,#vimeo_frame {
+    pointer-events: none
+  }
+</style>
+<script>  
+  var player;  
+  function onYouTubePlayerAPIReady() {
+    // create the global player from the specific iframe (#video)
+    player = new YT.Player('video_image', {
+      events: {
+        // call this function when player is ready to use
+        'onReady': onPlayerReady
+      }
+    });
+  }
+  function onPlayerReady(event) {
+    // bind events
+    $(window).on('load',function(){
+      player.playVideo();
+    });
+  }
+  // Inject YouTube API script
+  var tag = document.createElement('script');
+  tag.src = "//www.youtube.com/player_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+  $(function(){
+    var ifid = '#vimeo_frame';
+    var iframe = $(ifid)[0];    
+    var player = new Vimeo.Player(iframe);    
+    $(window).on('load',function(){ 
+      player.play();
+    });
+  });
+</script>
+
+
+<script>
+  $(document).ready(function(){
+    function postMessageToPlayer(player, command){
+      if (player[0] == null || command == null) return;
+      player[0].contentWindow.postMessage(JSON.stringify(command),"*");
+    }
+    function playpauseVideo(video_type, control){
+      if(video_type == 'vimeo'){
+        var player = $('.videotype').find('.vimeo_frame');
+        console.log(player);
+
+        postMessageToPlayer(player, {
+          "method": control,
+          "value" : 1
+        });
+      }
+      else if(video_type == 'youtube'){
+        var player = $('.videotype').find('.youtube_frame');
+        postMessageToPlayer(player, {
+          "event": "command",
+          "func": control+"Video"
+        });
+      }
+      else if(video_type == 'video'){
+        var video = $('.video_iframe').get(0);
+        if(video != null){
+          if(video.paused){
+            video.play();
+          } else{
+            video.pause();
+          }
+        }
+      }
+    }
+    $('body').on("click",".click_video",function(e){
+      var video_type = $(this).data("type");
+      playpauseVideo(video_type,"play");
+    });
+    $('body').on("click",".click_video_stop",function(e){
+      var video_type = $(this).data("type");
+      playpauseVideo(video_type,"pause");
+    });
+  });
+</script>

@@ -1,0 +1,190 @@
+<div class="product-item product-items sale_parent" id="{{ product.id }}">
+ {% if product.compare_at_price > product.price  %}
+  <span class="sale">
+  {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% off
+  </span>
+  {% endif %}
+  <div class="product-item-cover" id="p{{ product.id }}">
+    {% if product.images.size > 0 %}
+    <div class="product-image1" data-proHandle="{{ product.handle }}">
+      <a href="{{ product.url }}" class="productImg" data-proHandle="{{ product.handle }}">
+        <img class="" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.feautured_image.alt}}" data-proHandle="{{ product.handle }}" data-src1="{{ product.featured_image | img_url: 'master' }}" />
+      </a>
+      {% for image in product.images %}
+      <a href="{{ product.url }}" class="hoverImg">
+        <img class="" src="{{ image | img_url:'master' }}" alt="{{ image.alt }}">
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="product-meta" id="product-{{ product.id }}">
+      <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+      <p class="price">{{ product.price | money }}{% if product.compare_at_price > product.price  %} <del>{{ product.compare_at_price | money }}</del>{% endif %}</p>
+      <div id="product-{{ product.id }}">
+        <form action="/cart/add" method="post" class="coll_form"  data-id="{{ product.selected_or_first_available_variant.id }}">
+          <!--         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"> -->
+          <select id="product-select_{{ product.id }}" name="id">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }}</option>
+            {% endfor %}
+          </select>
+          <div class="swatch_display">
+            {% if  product.variants.size > 1 %}
+            {% for option in product.options %}
+            {% include 'swatch' with option , index: product.id  %}
+            {% endfor %}
+            {% endif %}
+          </div>
+          <input type="hidden" name="qyantity" value ="1" >
+          <div class="add-to-cart">
+            <button name="add" type="submit" class="addcart_button" id="add-to-cart_{{ product.id }}">Add to Cart</button>
+          </div>
+          <div>
+            <a href="{{ product.url }}"  class="quickview" >Quick View</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'link-option' with product: product %}
+	
+<script>
+
+  
+  var selectCallback = function(variant, selector) {
+//     console.log(variant);
+//     console.log(selector);
+    var val = selector.product.id
+    var btn = '#p'+val+' .addcart_button';
+    var price = '#p'+val+' .price';
+//     console.log(price+" === "+btn);
+
+    var form = jQuery('#' + selector.domIdPrefix).closest('form');     
+
+    // BEGIN SWATCHES
+    if (variant) {
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+//         if (radioButton.size()) {
+//           radioButton.get(0).checked = true;
+//         }
+      }     
+    }
+    // END SWATCHES  
+
+    var f = 0;
+    if(f == 0){
+      form.find('.swatch').each(function(index,val){
+        if($(val).find('input[type="radio"]:checked').length == 0){
+          $(btn).text("select "+$(val).data("value")+" option");
+          $(btn).addClass('disabled').attr('disabled','disabled').fadeTo(1,0.3); 
+          f+= 1;
+          return false;
+        }
+      });
+    }   
+    if(f > 0){
+      return false;
+    } 
+    if(variant && variant.available) {
+      $(btn).removeClass('disabled').removeAttr('disabled'); 
+      $(btn).text("Add to cart").fadeTo(1,1);
+      var money_format = "{{ shop.money_format }}";
+      if(variant.price < variant.compare_at_price){
+        $(price).html(Shopify.formatMoney(variant.price, money_format)+ "<br><del>" + Shopify.formatMoney(variant.compare_at_price, money_format) + "</del>");
+      } else {
+        $(price).html(Shopify.formatMoney(variant.price, money_format));
+      }
+    } else {
+      $(btn).addClass('disabled').attr('disabled','disabled'); 
+      var message = variant ? "Sold Out" : "Unavailable";
+      $(btn).text(message).fadeTo(1,0.3);
+    }
+    
+  };
+
+  jQuery(document).ready(function(){
+    new Shopify.OptionSelectors("product-select_{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
+	
+  });
+
+ 
+
+  $('body').on("change",".swatch-element input[type=radio]:checked",function(e){
+    var change = $(this);
+    var label = $(this).next();
+    var color = "0px 0px 6px 7px "+label.data("color");
+    label.css("box-shadow",color);
+    $('input[type=radio].swatch_input').each(function(index,val){
+      if(!$(val).is(":checked")){ 
+        var shadow = $(val).next().data("shadow");
+        $(val).next().css("box-shadow",shadow);
+      }
+    });
+  });         
+
+  
+  $('.swatch-element').find('label').hover(
+    function(){
+      var item = $(this).parents('.product-item-cover').find('.product-image1'); 
+      var alt = $(this).data('value').toUpperCase();
+      item.find('.hoverImg').each(function(index,val){
+        var cmp_alt =  $(val).find('img').attr('alt').toUpperCase(); 
+        if(cmp_alt.indexOf(alt) != -1){
+          $(val).show();
+          item.find('.productImg').hide();
+          return false;
+        }else{
+          item.find('.hoverImg').hide();
+        }
+      });
+    },function(){
+      var item = $(this).parents('.product-item-cover').find('.product-image1');
+      item.find('.hoverImg').hide();
+      item.find('.productImg').show();
+    }
+  ); 
+
+</script>	
+<style>
+  .sale{
+    position: absolute;
+    top: 10px;
+    left: -4px;
+    z-index: 1;
+    text-transform: capitalize;
+    color: #fff;
+    background: #0f7fda;
+    border-radius: 30%;
+    transform: rotateZ(310deg);
+    padding: 2px 13px;
+    border: 4px groove #d8ff00;
+  }
+  .sale_parent{
+  	position:relative;
+  }
+  .product-item .product-image1 .productImg{
+    display:block;
+  }
+  .product-item .product-image1 .hoverImg{
+    display:none;
+  }
+/*  .product-item .product-image1:hover .productImg{
+    display:none;
+  } */
+  .product-item .product-image1 {
+    flex-grow: 1;
+    margin-bottom: 60px;
+    height: 360px; 
+  }
+  .product-item .product-image1 img {
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    height: 360px;
+    width: 100%; 
+  }
+</style>

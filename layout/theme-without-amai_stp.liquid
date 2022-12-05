@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
+    <meta name="theme-color" content="{{ settings.color_btn }}">
+    {%- if canonical_url != blank  -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- endif -%}
+
+    {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '30x30' }}" type="image/png">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+    {%- if request.page_type == 'search' and search.performed == true -%}
+    {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+    {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+    &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+    &ndash; {{ shop.name }}
+    {%- endunless -%}
+    {%- endcapture -%}
+    {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+
+    <title>{{ seo_title | strip }}</title>
+    
+    {%- endif -%}
+    {{ 'style.scss' | asset_url | stylesheet_tag }} 
+    {{ 'slick.css' | asset_url | stylesheet_tag }}
+    {{ 'shop.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery-2.2.4.min.js' | asset_url | script_tag }}   
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+    {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script>
+    {{ 'slick.js' | asset_url | script_tag }} 
+    {{ 'jquery.zoom.min.js' | asset_url | script_tag }}  
+    {{ 'oasis.js' | asset_url | script_tag }}  
+    {{ 'jQuery-cookie.js' | asset_url | script_tag }}  
+
+    {% comment %}
+    {{ 'zoomsl.min.js' | asset_url | script_tag }}
+    {% endcomment %}
+
+    {% render 'weglot_hreftags' %}
+    {% render 'weglot_switcher' %}
+
+    {% include 'previewer-head-template' %}
+    <script src="https://cdn.younet.network/main.js"></script>
+    {% include 'judgeme_core' %}
+  {%- if template contains 'customers' -%}
+  {{ 'customer.scss.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {{content_for_header}}
+    {% include 'qikify-navigator' %}
+  {% include 'qikify-smartmenu' %}
+</head>
+  <body class="{{ template | replace: '.', ' ' | truncatewords: 1, '' }}">
+{% section 'alpaca' %}
+
+
+
+    
+     <!-- mini-cart popup -->
+  <div class="cartDrawer">
+    <h3>YOUR CART</h3>
+    <a class="closecart" ><img src="{{ 'menu-close.png' | asset_url }}" alt="Close" /></a>
+    <div id="cart">
+    {% include 'cartHoverModel' %}
+    </div>
+  </div>
+  <div class="menu-overlay"> </div>
+  <!-- End mini-cart popup -->
+    
+    <header>
+      {% section 'header' %}
+<!--       ============{{ 'general.breadcrumbs.home_link_title' | t }}================== -->
+    </header>  
+    <main>
+      {{ content_for_layout }}
+      {%  if template contains 'product' %}
+      {% section 'auto-message' %}
+      {% endif %}
+    </main> 
+    <footer>
+      {% section 'footer' %}
+    </footer> 
+    {% comment %}
+    {% render 'spurit_sia_theme_snippet' %}
+    {% endcomment %}
+    {% include 'previewer-template' %}
+
+    {% if template contains 'product' %}
+    {{ 'jquery.products.min.js' | asset_url | script_tag }}
+    <script>
+      Shopify.Products.recordRecentlyViewed();
+    </script>
+    {% endif %}
+
+    <div class="loader">        
+    </div>
+{% include 'subscription-theme-footer' %}
+    
+  </body>
+</html>
+
+<style>
+  .loader{
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
+    width:100%;
+    height:100%;	
+    text-align:center;
+    background:#000 url(https://cdn.shopify.com/s/files/1/0425/7225/1295/files/oasis-logo.png?v=1598094655) no-repeat center;
+    color:#000;
+  }
+</style>
+<script>
+  $(window).load(function(){
+    $('.loader').fadeOut(500);
+  });
+</script>

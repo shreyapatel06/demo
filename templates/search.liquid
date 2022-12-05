@@ -1,0 +1,79 @@
+
+{% render 'nosto-element', id:'searchpage-nosto-1' %}
+<div class="zr-container">
+  <div id="searchresults">  
+    <form action="/search" method="get">
+      {%- if settings.search_option == 'products' -%}
+      <input type="hidden" name="type" value="product">
+      {%- elsif settings.search_option == 'blogs'  -%}
+      <input type="hidden" name="type" value="article" />
+      {%- elsif settings.search_option == 'everything'  -%}
+      <input type="hidden" name="type" value="{{search.terms  | escape}}" />
+      {%- endif -%}
+      <div class="input-wrapper">
+        <input type="text" name="q" value="{{search.terms  | escape}}" id="result-q" placeholder="Enter Keyword to Search..." />
+        <input type="submit" value="Search" />
+      </div>
+    </form>
+    <a href="/search?type=article&amp;q={{search.terms | escape}}" class="btn">Article</a>
+    <a href="/search?type=product&amp;q={{search.terms | escape}}" class="btn">Product</a>
+    <a href="/search?type=page&amp;q={{search.terms | escape}}" class="btn">Page</a>
+    {%- if search.performed -%}
+    {{ search.results_count }} results
+    {%- paginate search.results by 10 -%}  
+    {%- if search.results == empty -%}  
+    <p>Your search for "{{search.terms | escape}}" did not yield any results</p>              
+    {%- else -%}  
+    <div class="zr-shop-pro">
+      <ol class="zr-list zr-product-list zr-product-slider">
+        {%- for item in search.results -%}  
+        <li>
+          <div class="single-product-rape">
+          {%- if item.object_type == 'article' -%}
+          	<div class="zr-product-slider-img">
+              <a href="{{item.url}}" title="{{ item.title }}">{{ item | img_url: 'master' | img_tag: item.title }}</a>
+          	</div>
+          <div class="zr-product-slider-dec">
+            <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+          </div>
+          {%- endif -%}
+          {%- if item.object_type == 'product' -%}
+            {%- if item.featured_image -%}
+            	<div class="zr-product-slider-img">
+                  <a href="{{item.url}}" title="{{ item.title }}">{{ item.featured_image | product_img_url: 'master' | img_tag }}</a>
+          		</div>
+          	{%- else -%}
+                <div class="zr-product-slider-img">
+                  <a href="{{item.url}}" title="{{ item.title }}">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </a>
+                </div>
+            {%- endif -%}
+            <div class="zr-product-slider-dec">
+              <h3>{{ item.title | link_to: item.url }}</h3>
+              <p>{{ item.price | money }}</p>
+              <div style="clear:left"></div>     
+            </div>
+          {%- endif -%}
+          {%- if item.object_type == 'page' -%}
+            <div class="zr-product-slider-img">
+              <a href="{{item.url}}">{{ 'collection-1' | placeholder_svg_tag }}</a>
+            </div>
+            <div class="zr-product-slider-dec">
+              <h3>{{ item.title | link_to: item.url }}</h3>
+              <div style="clear:left"></div>     
+            </div>
+          {%- endif -%}
+          </div>
+        </li>
+        {%- endfor -%}
+      </ol>      
+    </div>
+    {%- endif -%}
+    <p>{{ paginate | default_pagination }}</p>
+    {%- endpaginate -%}    
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'nosto-element', id:'searchpage-nosto-2' %}

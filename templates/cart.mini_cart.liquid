@@ -1,0 +1,180 @@
+{% layout none %}
+<div class="overlay"></div>
+<div class="cart-popup active cart-list " data-section="mini-cart">
+  
+  
+  <div class="cp-container">
+    <div class="cart-top">
+      <div class="cart-head flexbox justify-between align-center">
+        <h2>Cart</h2>
+        <div class="close-cart">
+          {% include 'close_icon' %}
+        </div>
+      </div>
+      <div class="progress-bar-shipping">
+        {% assign price = 1500000  %}
+        {% assign price_cart_total =  cart.total_price  %}
+        {% assign remaining_price = price | minus: price_cart_total   %}
+        {% capture width %}
+        {{ price_cart_total | times: 100 | divided_by: price }}%
+        {% endcapture %}
+        <div class="progress_bar">
+          <div class="progress_bar_fill" style="width:{{ width }}"></div>
+        </div>
+        <div class="progress_bar_content row justify-center">
+          {% if price_cart_total >= price %}
+          Free Shipping
+          {% else %}
+          You're <span style="color:red; padding:0 5px;">{{ remaining_price | money  }}</span> away from free shipping!
+          {% endif %}
+        </div>
+      </div>
+
+      
+      {% if cart.item_count > 0 %}
+      <div class="cart-content">
+        {% for item in cart.items %}
+        {% if forloop.index == 1 %}
+        {% capture first_product_handle %}{{ item.product.handle }}{% endcapture %}
+        {% endif %}
+        <div class="cart-content-block flexbox item_{{ item.id }} {% if item.properties["monogram_product"] %}{{ item.properties["monogram_product"] }} {% endif %}" data-price="{{ item.line_price }}" {% if item.properties["Monogram Product ID"] %}data-monogram_product_id = "{{ item.properties["Monogram Product ID"] }}"{%  endif %}>
+          {% if item.image %}
+          <div class="cart-img flexbox align-center justify-center">
+            <img src="{{ item.image | img_url:'small' }}" alt="{{ item.alt }}">
+          </div>
+          {% endif %}
+          <div class="cart-detail">
+            <h6><a href="{{ item.url }}">{{ item.product.title }}</a><br>
+              {% unless item.product.has_only_default_variant %}
+              <div style="font-size:12px;">
+                {% for option in item.options_with_values %}
+                <span>{{ option.name }}: {{ option.value }}</span><br>
+                {% endfor %}
+              </div>
+              {% endunless %}
+              {% comment %}
+              {% for option_title in item.product.options %}
+              {{ option_title }}: {{item.variant.options[forloop.index0] }}<br>
+              {% endfor %}
+              
+              {% for option_title in item.product.options %}
+              <label class="{{ option_title }}-label">{{ option_title }} : {{item.variant.options[forloop.index0] }}</label>
+              {% endfor %}
+              {% endcomment %}
+              
+            </h6>
+            {% if item.properties["Monogram Price"] %}
+            	{% capture add_price %}
+            		{{ item.properties["Monogram Price"] }}
+            	{% endcapture %}
+            {% endif %}
+            <p>{% if add_price != blank %}{{ item.line_price | plus:add_price | money }}{% else %}{{ item.line_price | money }}{% endif %}</p>
+            <p>
+              {% for p in item.properties %}
+              {% unless p.last == blank or p.first == "subscription_id" or p.first == "shipping_interval_frequency" or p.first == "shipping_interval_unit_type" or p.first == "Monogram Product ID" or p.first == 'Monogram Price' %}
+              {% if p.last !=  blank %}
+              <span class="propertie_span"><strong>{{ p.first }}:</strong> 
+                {% if p.last contains '/uploads/' %}
+                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                {% else %}
+                {% if p.first == 'Selected Option' %}
+                <img src="{{ p.last }}" class="cart_propertie_image">
+                {% else %}
+                {{ p.last }}
+                {% endif %}
+                {% endif %}
+              </span>	
+              {% endif %}
+              {% endunless %}
+              {% endfor %}
+            </p>
+            <!--             <form class="" action="/cart" method="post"> -->
+            <div class="quantity-btns flexbox align-center justify-center qty">
+              <input type="number" class="cart-input"  id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}" data-item_id="{{ item.id }}">
+            </div>
+            <!--             </form> -->
+          </div>
+          <div class="remove" data-line="{{ forloop.index }}" data-item_id="{{ item.id }}">
+            <img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/close-icon.svg?v=1598246447" alt="remove-icon"/>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <h3>Your Cart is Empty</h3>
+      {% endif %}
+    </div>
+<!--     {% if first_product_handle != blank %}
+    <div class="related">
+      {% assign first_product = all_products[first_product_handle] %}
+      {% for tag in first_product.tags %}
+      {% if tag contains '@' %}
+      {% capture related_product_handle %}{{ tag | split: '@' | last }}{% endcapture %}
+      {% break %}
+      {% endif %}
+      {% endfor %}
+      {% assign related_product = all_products[related_product_handle] %}
+      {% if related_product != blank %}
+      <div class="cart-bottom-head flexbox justify-between align-center">
+        <h4 class="cart-bottom-h4">{{ related_product.title }}</h4>
+        <img src="{{ related_product| img_url:'small' }}" >
+        <h4 class="cart-bottom-h4">{{ related_product.price | money }}</h4>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %} -->
+    <div class="cart-bottom">
+      <div class="cart-bottom-head flexbox justify-between align-center">
+        <h4 class="cart-bottom-h4">Subtotal:</h4>
+        <h4 class="cart-bottom-h4">{{ cart.total_price | money }}</h4>
+      </div>
+      <div class="button" style="padding-right: 33px;"><button class="btn edit"><a href="/cart" style="color:#fff">View Cart</a></button></div>
+    </div>
+  </div>
+</div>
+<style>
+  .remove{
+  	width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background: #f00;
+    display: block;
+    margin: 0 auto; 
+  }
+  .remove img{
+    width: 50%;
+    padding: 0px 0px 3px 1px;
+  }
+  .cart-bottom .button{
+  	margin-top:10px;
+  }
+  .related{
+  	padding:30px 0;
+  }
+  .progress_bar {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 387px;
+    background-color: #e5e5e5;
+  }
+  .progress_bar_fill{
+    height: inherit;    
+    width: 0%;
+    background-color: #204b6e;
+  }
+  .progress_bar_content{
+    padding:10px 0;
+  }
+  .cart-popup .cart-img{
+    overflow: hidden;
+  }
+  .cart-popup .cart-img img{
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    max-width: unset;
+  }
+</style>

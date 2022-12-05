@@ -1,0 +1,134 @@
+{% comment %}
+{% form 'customer', class: 'contact_form' %}
+            {{ form.errors | default_errors }}
+            {% if form.posted_successfully? %}
+            <p class="form-success">Form Submitted</p>
+            {% endif %}
+<input type="hidden" name="contact[tags]" value="newsletter_subscbibe">
+ <input type="hidden" name="contact[accepts_marketing]" value="true" />
+            
+              <div class="input-wrapper">
+                <label for="Email">E-mail <span class="error">*</span></label>
+                <input type="text" name="contact[email]" id="Email">
+              </div>
+              <div class="input-wrapper">
+                <input type="submit" value="Send" class="btn-red contact_send">
+              </div>
+            {% endform %}
+			
+			
+<script>
+$('body').on('click','.contact_send', function(e){
+    var form = $(this).closest('.contact_form');
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var x = true;
+    form.find('.err-msg').remove();
+    var email = form.find('#Email');
+    if(email.val().trim() == '' || !regex.test(email.val())) {
+      var message = "Please enter valid email.";
+      if(email.val() == ''){
+        message = "This is a required field.";
+      }
+      email.parent().append('<p class="err-msg">'+message+'</p>');
+      x = false;
+      e.preventDefault();
+    } else {
+      email.parent().find('.err-msg').remove();
+    }
+    if(x==false) {
+      return false;
+    }
+  });
+
+</script>
+{% endcomment %}
+
+{% form 'contact', class: 'contact_form' %}
+{{ form.errors | default_errors }}
+{% if form.errors %}
+<div class="Form__Alert Alert Alert--error">
+  <ul class="Alert__ErrorList">
+    {% for field in form.errors %}
+    {% if field == 'form' %}
+    <li class="Alert__ErrorItem">{{ form.errors.messages[field] }}</li>
+    {%- else -%}
+    <li class="Alert__ErrorItem"><strong>{{ form.errors.translated_fields[field] }}</strong> {{ form.errors.messages[field] }}</li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% if form.posted_successfully? %}
+<p class="form-success">We will contact you shortly...</p>
+{% endif %}
+<div class="input-wrapper input-row row jc-sb">
+  <div class="name-input col-6 col-m-6"><label for="Name">Name <span class="error">*</span></label>
+    <input type="text"  name="contact[name]" id="Name"></div>
+  <div class="phone-input col-6 col-m-6"><label for="Phone">Phone</label>
+    <input type="text" name="contact[phone]" id="Phone"></div>
+</div>
+<div class="input-wrapper">
+  <label for="Email">E-mail <span class="error">*</span></label>
+  <input type="text" name="contact[email]" id="Email">
+</div>
+<div class="input-wrapper">
+  <label for="Message">Message <span class="error">*</span></label>
+  <textarea name="contact[body]" id="Message"></textarea>
+</div>
+<div class="input-wrapper">
+  <input type="submit" value="Send" class="btn-red contact_send">
+</div>
+{% endform %}
+
+			
+<script>
+  $('body').on('click','.contact_send', function(e){
+    var form = $(this).closest('.contact_form');
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var phone_no =  /^[\+][0-9]{1}[(]?[0-9]{3}[)][\s][0-9]{3}[-][0-9]{4}$/im;
+    var x = true;
+    form.find('.err-msg').remove();
+
+    var phone = form.find('#Phone');
+
+    if(phone.val().trim() == '' || !phone_no.test(phone.val())) {
+      var message = "* Please enter valid Phone No..";
+      if(phone.val() == ''){
+        message = "* This is a required field.";
+      }
+      phone.parent().append('<p class="err-msg">'+message+'</p>');
+      x = false;
+      e.preventDefault();
+    } else {
+      phone.parent().find('.err-msg').remove();
+    }
+
+    if(x==false) {
+      return false;
+    }
+  });
+  $('body').on("keyup","#Phone",function(e){
+    e.preventDefault();
+    var value = $(this).val();
+    var val = $(this).val().replace(/[^\d]/g, '');
+    var phone = $(this);
+    var x = true;
+    if(e.key != 'Backspace'){
+      if(val.length == 1){
+        val = val.replace(/(\d{1})/, "+1($1");	
+      }else if(val.length == 5){
+        val = val.replace(/(\d{1})(\d{3})/, "+$1($2) ");
+      }else if(val.length == 7){
+        val = val.replace(/(\d{1})(\d{3})(\d{3})/, "+$1($2) $3-");	
+      }else if(val.length == 8){
+        val = val.replace(/(\d{1})(\d{3})(\d{3})(\d{1})/, "+$1($2) $3-$4");		  
+      }else if(val.length > 11){
+        val = val.substring(0,11).replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, "+$1($2) $3-$4");		  
+      }else{
+        val = value;
+      }
+      $(this).val(val);
+    }
+    //     val = val.replace(/(\d{3})(\d{3})(\d{4})/, "+1($1) $2-$3");		  
+  });
+</script>

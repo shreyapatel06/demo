@@ -1,0 +1,113 @@
+<div class="site-header ">
+  <div class="announcement bgcolor6">
+    <div class="container">
+      <div class="row jc-c">
+        <p>FREE SHIPPING FOR ORDERS OVER $100</p>
+      </div>
+    </div>
+  </div>
+  <div class="main-header">
+    <div class="container">
+      <div class="row ai-c">
+        <div class="logo">
+          <a href="#"><img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/oasis-logo.png?v=1598094655" alt="Oasis"></a>
+        </div>
+        <nav class="nav">
+          <ul class="navigation">
+            {% for link in linklists[section.settings.main_menu].links %}
+            <li class="nav-item"><a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
+              {% if link.links %}
+              <ul class="submenu">
+                {% for sub_link in link.links %}
+                <li class="nav-item"><a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                  {% if sub_link.links %}
+                  <ul class="submenu1">
+                    {% for sub_sub_link in sub_link.links %}    
+                    <li class="nav-item"><a href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+        <div class="right-menu">
+          <!-- include 'wishlist-link' -->
+          <div class="search-icon">
+            <a href="/search"><img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/search-icon_de802453-8a06-4378-a6bf-155bf3e3f953.svg?v=1598095872" alt="Search"></a>
+          </div>
+          <div class="cart-icon js-ajax-cart-drawer-trigger">
+            <a href="/cart"><img src="https://cdn.shopify.com/s/files/1/0425/7225/1295/files/cart-icon_45c19c6d-1c64-4e53-b38e-00662fbeab2a.svg?v=1598095929" alt="Search"></a>
+            <div class="cart_popup">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .submenu{
+    position: absolute;
+    color: #333;
+    list-style: none;
+    padding: 10px;
+    left: 0;
+    display: none;
+    width: 200px;
+    top: 100%;
+    z-index: 1;
+    margin-left: 0px;
+    background-color:#ffffff;
+  }
+  .submenu>li{
+    padding:10px 0;
+    font-weight:normal;
+    position:relative;
+    text-align: left;
+  }
+  .submenu1{
+    position:absolute;
+    color:#333;
+    list-style-type:none;
+    padding:10px;
+    left:100%;
+    display:none;
+    width:100%;
+    top:0;
+    z-index:1;
+    background-color:#ffffff;
+  }
+  .submenu1>li{
+    padding:10px;
+  }
+  .submenu>li:hover .submenu1{
+    display:block;
+  }
+  .navigation>li:hover .submenu{
+    display:block;
+  }
+  .navigation>li{
+    position:relative;
+  }
+  .cart_remove{
+    display:none;
+  }
+</style>
+{% schema %}
+{
+"name": "Header",
+"settings": [
+{
+"type":"link_list",
+"id":"main_menu",
+"label":"select menu for header"
+}
+]
+}
+{% endschema %}

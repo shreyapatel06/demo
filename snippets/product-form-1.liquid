@@ -1,0 +1,109 @@
+<div class="products" id="product-{{ product.id }}">
+<!-- {% form 'product', product, id: "add_to_cart", class: "add_to_cart", method: "post", data-section:'product-form' %} -->
+<form action="/cart/add" method="post" class="add_to_cart" id="add_to_cart" data-productid="{{product.id}}">
+  
+  
+  <div class="price-qty flex for_price">
+    <!-- +++{{ product.price | divided_by: 3 | money }}===  -->
+    <h3 class="color6" id="price-preview">{{ product.price | money }}</h3>
+    <input type="hidden" value="{{ product.price }}"  class="price_total main_price">
+    <div class="qty">
+      <a class="minus">-</a>
+      <input type="text"  value="1" class="qty_change" name="quantity" id="qty">
+      <a class="plus">+</a>
+    </div>
+  </div>
+  <p>Type: {{ product.type }}  by  {{ product.vendor }}</p> 
+
+
+  
+  <input type="hidden" name="properties[Bundle ID]" value="" class="bundleId">
+
+  
+{% if product.has_only_default_variant %}
+   <input name="id" value="{{ product.selected_or_first_available_variant.id }}" type="hidden" data-productid="{{product.id}}">
+{% else %}
+  <div class="select  clearfix"{% if hide_default_title %} style="display:none"{% endif %} data-productid="{{product.id}}">
+    <select id="product-select" name='id'>
+      {% for variant in product.variants %}
+      <option value="{{ variant.id }}" data-value="{{ variant.title }}" class="{{ variant.title }}" {% if variant == product.selected_variant %}selected="selected"{% endif %}>
+        {{ variant.title }}
+      </option>
+      {% endfor %}
+    </select> 
+    {% if product.available and product.variants.size > 1 %}
+    {% for option in product.options %}
+    {% include 'swatch' with option %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="bundle">
+    <h3>Bundle</h3>
+    <hr>
+    {% for tag in product.tags %}
+    {% if tag contains '#' %}
+    {% assign p = tag | remove: '#' %}
+    {% assign pro = all_products[p] %}
+    <div class="otherProduct for_price" data-handle="{{ pro.handle }}" id='{{ pro.id }}'>
+      <h5>{{ pro.title }}</h5>
+      <div class="qty">
+        <a class="minus">-</a>
+        <input type="text"  value="1" name="quantity" class="quantity qty_change" id="qty">
+        <a class="plus">+</a>
+      </div>
+      <input type="hidden" value="{{ pro.price }}" class="price_total">
+      <select id="other_product_{{ forloop.index0 }}" class="other_product" style="display:none">
+        {% for var in pro.variants %}
+        <option value="{{ var.id }}" {% if forloop.index0 == 0 %}selected="selected"{% endif %}>{{ var.title }}</option>
+        {% endfor %}
+      </select>
+      {% for opt in pro.options %}
+      {% include 'swatch' with opt , product: pro, index: pro.id , bundle: true  %}
+      {% endfor %}
+      <script>
+        jQuery(document).ready(function(){
+          new Shopify.OptionSelectors("other_product_{{ forloop.index0 }}",{ product: {{ pro | json }},  onVariantSelected: selectCallback1 });
+        });
+      </script>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  <!--   <div class="custom_filed">
+<input type="checkbox" name="properties[Payment Type]" value="Online"><label>Online</label>
+<input type="checkbox" name="properties[Payment Type]" value="COD"><label>COD</label>
+</div>
+<div class="custom_filed">
+<input type="radio" name="properties[Payment]" value="Online"><label>Online</label>
+<input type="radio" name="properties[Payment]" value="COD"><label>COD</label>
+</div> -->
+  <div class="add-to-cart-button button6">
+    <button id="add-to-cart" class="product_add_to_cart btn">ADD TO CART</button>
+
+  </div>
+  <!-- </form> -->
+  <div data-shopify="payment-button" class="add-to-cart-button button6">
+    <button  class="product_add_to_cart" data-testid="Checkout-button">sdf</button>
+  </div>
+</form>
+<!-- {% endform %} -->
+</div>
+{% comment %}
+{% include 'link-option' with product: product %}
+{% endcomment %}
+
+<style>
+  form{
+    display:grid;
+  }
+  .sealsubs-container{
+    background: antiquewhite;
+  }
+  .bundle{
+    padding:10px;
+    border: 1px solid #000;
+  }
+</style>

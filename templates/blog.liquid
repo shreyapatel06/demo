@@ -1,0 +1,68 @@
+<!-- Blog.liquid v0.1 
+
+This blog template provides a simple listing of all blog articles.
+
+-->
+<a href="{{ blog.url }}/tagged/tagsss">aaa</a>
+<h2>{{page.title}}</h2>
+
+<!-- Show 10 articles per page -->
+{% paginate blog.articles by 10 %}
+
+	<!-- Iterate through every article and display it -->
+	{% for article in blog.articles  %}
+		<h3 class="title"><a href="{{article.url}}">{{ article.title }}</a></h3>
+
+		<!-- Display the meta info like the author and the date posted -->
+		<div class="meta">
+			<span class="author">by {{ article.author }}</span>
+			<span class="date">Posted on {{ article.created_at | date: "%B %d, '%y" }}</span>
+		</div>
+
+		<!-- Displays the body of the article-->
+		<div class="article-body">
+        	{{ article.content }}
+      	</div>
+
+		<!-- Display an enticement for people to leave a comment, or display the number of comments-->
+		{% if blog.comments_enabled? %}
+			<div class="comments">
+       			{% if article.comments_count == 0 %}
+					<a href="{{article.url}}#comments">Leave a comment</a>
+				{% else %}
+ 						<a href="{{article.url}}#comments">{{ article.comments_count }} comments</a>
+				{% endif %}
+			</div>
+       	{% endif %}
+		
+    {% endfor %}
+    
+	<div id="pagination">
+      	{{ paginate | default_pagination }}
+</div>
+{% endpaginate %}
+
+<ul class="blog_all_tags">
+  {%- for tag in blog.all_tags -%} 
+  {% assign count = 0 %}
+  {% for article in blogs[blog.handle].articles %}
+  {% if article.tags contains tag %}
+  {% capture count %}{{ count | plus: 1 }}{% endcapture %}
+  {% endif %}
+  {% endfor %} 
+  {%- if current_tags contains tag -%}
+  <li class="tag active">{{ tag | link_to_remove_tag : tag }}({{ count }})</li>
+  {%- else -%}
+  <li class="tag">{{ tag | link_to_tag : tag }}({{ count }})</li>
+  {%- endif -%}
+  {%- endfor -%}
+</ul>
+<style>
+  .blog_all_tags .tag.active{
+    color: #ff05c9;
+  }
+  .blog_all_tags .tag.active a{
+    color: #ff05c9;
+  }
+</style>
+{% unless current_tags %}================================================={% endunless %}

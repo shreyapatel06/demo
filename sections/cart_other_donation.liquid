@@ -1,0 +1,205 @@
+{% assign product = all_products[section.settings.donation_product] %}
+{% if product != blank %}
+{% assign all_ids = '' %}
+{% for item in cart.items %}
+{% capture all_ids %}{% if all_ids != blank %}{{ all_ids }}|{% endif %}{{ item.id }}{% endcapture %}
+{% endfor %}
+{% assign all_ids = all_ids | split:'|' | join:',' %}
+<div class="cart-content">
+  <div class="row">
+    <div class="col-left half">
+      <div class="cart-left-col">
+        <h3>OPTIONAL DONATION: </h3>
+        <div class="coupon-content-col donation_div" >
+          {% if product.has_only_default_variant %}
+          <input name="id" value="{{ product.selected_or_first_available_variant.id }}" type="hidden">
+          {% else %}
+          <ul>
+            {% comment %}
+            {% for option in product.options %}
+            {% if option == 'price' %}
+            {%- assign index = forloop.index0 -%}
+            {%- assign donationlist = '' -%}
+            {%- assign donation = '' -%}
+            {% assign all_variants = '' %}
+            {%- for variant in product.variants -%}
+            {% capture all_variants %}{% if all_variants != blank %}{{ all_variants }}|{% endif %}{{ variant.id }}{% endcapture %}
+            {%- capture donation -%}{{ variant.options[index] }}{%- endcapture -%}
+            {%- unless donationlist contains donation -%}
+            {%- assign text = donation | handleize -%}
+            <li>
+              <input type="radio" id="donate{{ forloop.index }}" name="radio-group" class="donation_change {% if all_ids contains variant.id %} active{% endif %}" value="{{ variant.id }}" data-price="{{ variant.price | money_without_currency }}" hidden/>
+              <label for="donate{{ forloop.index }}">{{ text | prepend: 'Rs.' }}</label>
+            </li>
+            {%- capture tempList -%}{{ donationlist | append: donation | append: '|' }}{%- endcapture -%}
+            {%- assign donationlist = tempList -%}
+            {%- endunless -%}
+            {%- endfor -%}
+            {% endif %}
+            {% endfor %}
+            {% endcomment %}
+            
+            
+            {% assign all_variants = '' %}
+            {% for variant in product.variants %}
+            {% capture all_variants %}{% if all_variants != blank %}{{ all_variants }}|{% endif %}{{ variant.id }}{% endcapture %}
+            <li>
+              <input type="radio" id="donate{{ forloop.index }}" name="radio-group" class="donation_change {% if all_ids contains variant.id %} active{% endif %}" value="{{ variant.id }}" data-price="{{ variant.price | money_without_currency }}" hidden/>
+              <label for="donate{{ forloop.index }}">{{ variant.title | prepend: 'Rs.' }}</label>
+            </li>
+            {% endfor %}
+            
+            <input type="hidden" value="{{ all_variants }}" class="all_variants">
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-right half">
+      <div class="cart-right-col">
+        <h3>Donationer Name</h3>
+        <div class="cart-content-col">
+<!--           <input type="text" name="attributes[Donationer-Name]" value="{{ cart.attributes['Donationer-Name'] }}"> -->
+          <input type="text" name="attributes[ss]" value="{{ cart.attributes['ss'] }}">
+        </div>
+        <input id="donationer-name" type="text" name="attributes[Donationer-name]" value="{{ cart.attributes.Donationer-name }}">
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .donation_div ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .donation_div li {
+    margin: 5px;
+  }
+/*   .donation_div input[type='radio']:checked + label {
+    color: #fff;
+    background: #d4b978;
+    padding: 5px 10px;
+  } */
+  .donation_div input[name='radio-group'].active + label {
+    color: #fff;
+    background: #d4b978;
+    padding: 5px 10px;
+  }
+  .donation_div label {
+    color: #fff;
+    background: #7ca7ad;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    var money_formate =  '{{ shop.money_format }}';
+
+    function success(e){
+      $.getJSON('/cart.js', function(c){
+        if($('.cart-section').hasClass("empty_cart")){
+          $('.cart-section').removeClass("empty_cart");
+          $('.cart-section').addClass("full_cart");
+        }
+        var href='/cart?view=cart_append';
+        $.get(href,function(data){
+          $('.cart-body').html(data);        	
+        });
+        $('.cart_total').html(Shopify.formatMoney(c.total_price,money_formate ));
+      });
+    }
+    
+    function product_add(val){
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: "id="+val+"&quantity=1",
+        url: "/cart/add.js",
+        async: false
+      }).done(function(data){
+        success();
+      }); 
+    }
+
+    function remove_item(id){
+      $.ajax({
+        type: "post",
+        dataType: 'json',
+        data:'updates['+id+']=0',
+        url:'/cart/update.js',
+        async: false
+      }).done(function(){
+        success();
+      });
+    }                  
+
+    $('body').on('change, click',".donation_change",function(e){
+      var change = $(this);
+      var val = change.val();
+      if($(this).hasClass('active')){
+        change.removeClass('active');
+        remove_item(val);
+      }else{
+        $('.donation_change').removeClass('active');
+        change.addClass('active');
+        var all_ids = change.parents('.donation_div').find('.all_variants').val();
+        $.getJSON('/cart.json',function(cart){
+          var cart_ids = [];
+          for(var i in cart.items){
+            if(all_ids.indexOf(cart.items[i].id) != -1){
+              remove_item(cart.items[i].id);
+              break;
+            }
+          }
+        }).done(function(){
+          if(parseFloat(change.data('price')) > 0){
+            product_add(val);
+          }else{
+            remove_item(val);
+          }
+        });
+      }
+    });
+
+
+
+  });
+</script>
+{% endif %}
+{% schema %}
+  {
+    "name": "Cart Other Donation",
+    "settings": [
+		{
+			"type":"product",
+			"id":"donation_product",
+			"label":"Donation Product"
+		}
+	]
+  }
+{% endschema %}
+{% comment %}
+{{ 'social/social-icons.css' | global_asset_url | stylesheet_tag }}
+<style>
+  .social-links a { display: -moz-inline-stack; display: inline-block; zoom: 1; *display: inline; margin: 0; padding: 0.05em; color: #555!important; font-size: 40px!important; }
+</style>
+<span class="social-links">
+  <a href="https://www.facebook.com/shopify" title="Follow us on Facebook" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-facebook-circle color"></span></a>
+  <a href="https://twitter.com/shopify" title="Follow us on Twitter" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-twitter-circle color"></span></a>
+  <a href="#" title="Follow us on Pinterest" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-pinterest-circle color"></span></a>
+  <a href="#" title="Follow us on Google+" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-googleplus-circle color"></span></a>
+  <a href="#" title="Follow us on Instagram" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-instagram-circle color"></span></a>
+  <a href="#" title="Follow us on linkedin" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-linkedin-circle color"></span></a>
+  <a href="#" title="Follow us on Flickr" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-flickr-circle color"></span></a>
+  <a href="#" title="Look us up on Yelp" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-yelp-circle color"></span></a>
+  <a href="#" title="Follow us on Vimeo" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-vimeo-circle color"></span></a>
+  <a href="#" title="Follow us on YouTube" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-youtube-circle color"></span></a>
+  <a href="#" title="Come visit our blog" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-tumblr-circle color"></span></a>
+  <a href="#" title="Come visit our blog" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-wordpress-circle color"></span></a>
+  <a href="#" title="Subscribe to our blog" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-feed-circle color"></span></a>
+  <a href="#" title="Email us" target="_blank" rel="noopener noreferrer"><span class="shopify-social-icon-email-circle color"></span></a>
+</span>
+{% endcomment %}

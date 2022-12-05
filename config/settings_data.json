@@ -1,0 +1,862 @@
+{
+  "current": {
+    "favicon": "shopify:\/\/shop_images\/retail-shopping-package.jpg",
+    "free_1": "free-1",
+    "free_2": "free-2",
+    "free_3": "free-3",
+    "app_wk_enabled": true,
+    "app_wk_login_required": true,
+    "app_wk_icon": "heart",
+    "app_wk_col_bg_shape": "none",
+    "app_wk_share_position": "top",
+    "app_wk_products_per_row": "4",
+    "products": [
+      "copy-of-gown-1",
+      "copy-of-cloths",
+      "copy-of-copy-of-gown",
+      "copy-of-gown",
+      "digital-product-1",
+      "copy-of-ultibio-immune-vegetable-capsules-9",
+      "cloths-1",
+      "donation",
+      "e-gift-card",
+      "free-1",
+      "free-2",
+      "free-3",
+      "rise-ai-giftcard",
+      "gift-wrapping",
+      "gift-war",
+      "tops",
+      "necklace",
+      "ring",
+      "kurta-2"
+    ],
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#ca8d47",
+    "checkout_button_color": "#ca8d47",
+    "checkout_error_color": "#e32c2b",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "main_menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "main_menu": "main-menu"
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "bg_img": "shopify:\/\/shop_images\/shop-header_b9567d4c-17c1-495e-9c74-41b317bf33f7.png",
+          "show_filter": true
+        }
+      },
+      "16110282539f0a80e6": {
+        "type": "instagram-section",
+        "blocks": {
+          "1bebbd80-db9f-4733-86eb-16ab5a9b1028": {
+            "type": "instagram",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/half-of-an-avocado.jpg"
+            }
+          },
+          "1c2cf034-eeab-41de-b80e-a0dfea8136d3": {
+            "type": "instagram",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/half-of-an-avocado.jpg"
+            }
+          },
+          "d75473a9-22ce-4888-aedb-cd7fb24ae5ce": {
+            "type": "instagram",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/half-of-an-avocado.jpg"
+            }
+          },
+          "e69115c0-d7e0-4dc7-a9af-cd45e7dd6999": {
+            "type": "instagram",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/half-of-an-avocado.jpg"
+            }
+          },
+          "4b73bdf0-227c-40fa-9e4e-f3f839f2252e": {
+            "type": "instagram",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/half-of-an-avocado.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "1bebbd80-db9f-4733-86eb-16ab5a9b1028",
+          "1c2cf034-eeab-41de-b80e-a0dfea8136d3",
+          "d75473a9-22ce-4888-aedb-cd7fb24ae5ce",
+          "e69115c0-d7e0-4dc7-a9af-cd45e7dd6999",
+          "4b73bdf0-227c-40fa-9e4e-f3f839f2252e"
+        ],
+        "settings": {
+          "text": "socialise with us",
+          "image": "shopify:\/\/shop_images\/shop-header_b9567d4c-17c1-495e-9c74-41b317bf33f7.png",
+          "textarea1": "<p><strong>murumbeena<\/strong>9\/993 north road<br>03 9570 1122<\/p>",
+          "textarea2": "<p><strong>murumbeena<\/strong>9\/993 north road<br>03 9570 1122<\/p>",
+          "facebook_link": "#",
+          "instagram_link": "#"
+        }
+      },
+      "cart-product": {
+        "type": "cart-product",
+        "blocks": {
+          "623cfba6-f886-46f4-954b-f6c7e52a441a": {
+            "type": "collection",
+            "settings": {
+              "coll": "tops"
+            }
+          },
+          "2d7e6c38-b0ee-446c-b633-523aa4931b20": {
+            "type": "collection",
+            "settings": {
+              "coll": "jewellary"
+            }
+          },
+          "3360adf0-17d1-4926-aea3-1a86dfb104b8": {
+            "type": "collection",
+            "settings": {
+              "coll": "kurta1"
+            }
+          },
+          "f3f42439-3c8c-4649-b623-72eff5297cee": {
+            "type": "collection",
+            "settings": {
+              "coll": "dress-gown"
+            }
+          },
+          "86a93620-faff-453c-9c40-f25fd200e40f": {
+            "type": "collection",
+            "settings": {
+              "coll": "handbegs"
+            }
+          }
+        },
+        "block_order": [
+          "623cfba6-f886-46f4-954b-f6c7e52a441a",
+          "2d7e6c38-b0ee-446c-b633-523aa4931b20",
+          "3360adf0-17d1-4926-aea3-1a86dfb104b8",
+          "f3f42439-3c8c-4649-b623-72eff5297cee",
+          "86a93620-faff-453c-9c40-f25fd200e40f"
+        ],
+        "settings": {
+        }
+      },
+      "auto-message": {
+        "type": "auto-message",
+        "blocks": {
+          "009e5397-b56e-4364-ba07-215717ea7f88": {
+            "type": "messages",
+            "settings": {
+              "message": "<p>automatic 1<\/p>"
+            }
+          },
+          "a8da2bb8-a87d-4774-b0e0-f96a10334786": {
+            "type": "messages",
+            "settings": {
+              "message": "<p>automatic 2<\/p>"
+            }
+          },
+          "20e2d75a-363f-4174-b706-dd5201ac6936": {
+            "type": "messages",
+            "settings": {
+              "message": "<p>automatic 3<\/p>"
+            }
+          },
+          "17924e4e-36e9-47c8-a7a4-589b8a879808": {
+            "type": "messages",
+            "settings": {
+              "message": "<p>automatic 4<\/p>"
+            }
+          },
+          "8d3e467e-9678-4459-8c33-0bd951c36191": {
+            "type": "messages",
+            "settings": {
+              "message": "<p>automatic 5<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "009e5397-b56e-4364-ba07-215717ea7f88",
+          "a8da2bb8-a87d-4774-b0e0-f96a10334786",
+          "20e2d75a-363f-4174-b706-dd5201ac6936",
+          "17924e4e-36e9-47c8-a7a4-589b8a879808",
+          "8d3e467e-9678-4459-8c33-0bd951c36191"
+        ],
+        "settings": {
+          "delay": 10,
+          "show_time": 15
+        }
+      },
+      "page_select": {
+        "type": "page_select",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "product1": {
+        "type": "product1",
+        "settings": {
+        }
+      },
+      "alpaca": {
+        "type": "alpaca",
+        "settings": {
+          "enable_alpaca": true,
+          "automatically_show_delivery_methods": true,
+          "show_delivery_method_shipping": true,
+          "require_delivery_method_before_checkout": false,
+          "prevent_ineligible_carts": true,
+          "verify_location_inventory": false,
+          "autofill_pickup_address": true,
+          "require_user_location_for_pickups": true,
+          "display_pickup_location_name_instead_of_address": true,
+          "display_pickup_location_name": true,
+          "display_pickup_location_instructions": true,
+          "forward_to_checkout_on_schedule_event": false,
+          "use_short_form_date": true,
+          "button_bg_color": "#000000",
+          "button_text_color": "#ffffff",
+          "primary_text_color": "#323232",
+          "secondary_text_color": "#565656",
+          "selected_cell_bg_color": "#000000",
+          "selected_cell_text_color": "#ffffff",
+          "delivery_methods_indicator_icon": "#000000",
+          "use_custom_fonts": true,
+          "primary_font": "sans-serif",
+          "secondary_font": "mono",
+          "button_font": "roboto_n7",
+          "delivery_method": "Delivery methods",
+          "delivery_methods_for": "Delivery methods for {postal_code}",
+          "delivery_method_shipping": "Shipping",
+          "delivery_method_shipping_desc": "Rates shown at checkout",
+          "delivery_method_pickup": "Store pickup",
+          "announcement_text": "Schedule a pickup",
+          "announcement_text_unscheduled": "Usually ready in 24 hours",
+          "delivery_method_delivery": "Local delivery",
+          "delivery_announcement_text_unscheduled": "Usually delivered in 48 hours",
+          "no_delivery_methods_available": "No delivery methods",
+          "no_delivery_methods_available_desc": "Your current cart is ineligible",
+          "delivery_announcement_text": "Schedule a delivery",
+          "select_pickup_time": "Select pickup time",
+          "select_delivery_time": "Select delivery time",
+          "confirm_text": "Confirm",
+          "later_text": "Later",
+          "earlier_text": "Earlier",
+          "select_location_text": "Select pickup location",
+          "select_delivery_rate_text": "Select delivery option",
+          "confirm_delivery_rate_text": "Confirm",
+          "confirm_location_text": "Confirm location",
+          "select_postal_code_text": "Enter your postal code",
+          "enter_address_text": "Enter your address",
+          "select_postal_code_placeholder": "Enter postal code...",
+          "confirm_postal_code_text": "Submit",
+          "pickup_on_text": "Pickup on",
+          "deliver_on_text": "Deliver on",
+          "cancel_pickup_selection_text": "Cancel pickup selection",
+          "see_future_dates_text": "See future dates",
+          "see_past_dates_text": "See past dates",
+          "loading_text": "Loading",
+          "near_current_location_text": "Near current location",
+          "near_text": "Near",
+          "deliver_to": "Deliver to",
+          "at_text": "at",
+          "from_text": "from",
+          "free_text": "Free",
+          "fetching_times": "Fetching times...",
+          "requesting_location_text": "Requesting location access...",
+          "finding_locations_text": "Finding locations near you...",
+          "fetching_delivery_rates_text": "Fetching delivery rates...",
+          "error_text": "Something went wrong while loading pickup times.",
+          "no_locations_text": "No pickup locations near you. Try another postal code.",
+          "no_rates_text": "Delivery rates are unavailable for your postal code or cart contents.",
+          "no_times_available": "No times available",
+          "dismiss_text": "Dismiss",
+          "in_stock_text": "In stock",
+          "out_of_stock_text": "Out of stock",
+          "at_inventory_text": "at",
+          "inventory_by_location_text": "Inventory by location",
+          "done_text": "Done",
+          "items_not_available_for_pickup": "Some items aren’t available for pickup",
+          "items_not_available_for_delivery": "Some items aren’t available for delivery",
+          "items_not_available_at_location": "Some items are out of stock",
+          "choose_another_delivery_method": "Choose another delivery method",
+          "remove_items_and_checkout": "Remove items and check out",
+          "more_times_available": "More times available &#8595;",
+          "custom_css": "",
+          "delivery_methods_selector": ".alpaca-injection",
+          "checkout_button_selector": "",
+          "timesheet_bg_color": "#ffffff",
+          "timesheet_bg_color_dark": "#f4f4f4",
+          "timesheet_border_color": "#e0e0e0",
+          "disabled_cell_bg_color": "#eeeeee",
+          "disabled_cell_text_color": "#999999",
+          "icon_color": "#323232",
+          "text_field_border_color": "#666666",
+          "text_field_border_color_focus": "#000000",
+          "in_stock_icon_color": "#2ab02f",
+          "out_of_stock_icon_color": "#e85f5f",
+          "primary_font_override": "",
+          "primary_font_size": 20,
+          "primary_font_letter_spacing": 0,
+          "primary_font_text_transform": "none",
+          "secondary_font_override": "",
+          "secondary_font_size": 14,
+          "secondary_font_letter_spacing": 0,
+          "secondary_font_text_transform": "none",
+          "button_font_override": "",
+          "button_font_size": 14,
+          "button_font_letter_spacing": 0,
+          "button_font_text_transform": "none",
+          "default_postal_code": "",
+          "show_delivery_method_icons": true,
+          "delivery_methods_orientation": "vertical",
+          "announcement_bar_height": 60,
+          "button_border_radius": 5,
+          "input_border_radius": 5,
+          "modal_border_radius": 5,
+          "cell_height": 70,
+          "cell_height_tablet_desktop": 90,
+          "footer_padding": 15,
+          "footer_padding_tablet_desktop": 11,
+          "show_announcement": false,
+          "home_page_only": false,
+          "show_announcement_type": "pickup",
+          "show_ctas_to_local_customers": true,
+          "detect_user_location": false,
+          "show_time_range_pickups": "15",
+          "show_time_range_deliveries": "15",
+          "location_entry_method": "postal_code",
+          "google_maps_api_key": "AIzaSyCX-_MjXVt8V4gROlXYirl7kXMzVcH92O8"
+        }
+      },
+      "cart_other_donation": {
+        "type": "cart_other_donation",
+        "settings": {
+          "donation_product": "donation"
+        }
+      },
+      "gallery_page": {
+        "type": "gallery_page",
+        "blocks": {
+          "49fea925-5cd1-4bf2-a5f7-10a385e29146": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/download_7.jpg"
+            }
+          },
+          "48b71164-3e4c-4046-a425-44e28cf68e01": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/download_2_abf0712b-fb09-4d86-b4dc-70ffb856a7e9.jpg"
+            }
+          },
+          "cf5fd501-d110-4be9-8ba8-f3b2c01198b3": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/download_5_6f6c9fdc-1c00-4997-a2b5-1d3813a83f40.jpg"
+            }
+          },
+          "7058215c-52f1-4668-a949-ec2e4086124d": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/pretty_pink_gown_in_net_157969036335_5117_d6c3f8bb-2dba-4f8d-943c-778ec883c9ea.jpg"
+            }
+          },
+          "2493d8b6-1eb5-4a01-b1fa-d477fec9ec1a": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/polyester-allround-blau_100.066-5027_2.jpg"
+            }
+          },
+          "cce49fa0-9a93-451a-b51b-827858e37741": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/polyester-cotton-fabric-500x500.jpg"
+            }
+          },
+          "436b6b38-7cf1-4213-995f-f84ef611782d": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/what-is-polyester-blog-banner-886x500.jpg"
+            }
+          },
+          "b0c5fe7f-dee7-4719-8bf7-ebb5aedd3425": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Vegan_Double_Chocolate_Brownie_Chunk_Ice_Cream__4869832969.jpg"
+            }
+          },
+          "6dee9a5c-b17b-4165-aeb8-8f128a5fdb64": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/download_6.jpg"
+            }
+          },
+          "d831b9aa-5fbd-489b-8101-641178912629": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/wp8867885.jpg"
+            }
+          },
+          "4e9f6a14-60f1-45d8-bc93-a88eb077dec8": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/download.jpg"
+            }
+          },
+          "b6103492-aeca-42d0-9fcc-a85a2699b3b4": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/st-004pe-cl-ch-pro-st-004-cl-ch-pro-hand-held-bag-shining-star-original-imafw5j8pufcqfg6.jpg"
+            }
+          },
+          "8504fb62-92c7-478e-9c5c-e010ab1e50a0": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/st-004pe-cl-ch-pro-st-004-cl-ch-pro-hand-held-bag-shining-star-original-imafw5j8mzvj32z5.jpg"
+            }
+          },
+          "c59cbfe5-976d-4132-a177-e5440a9cdb01": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/ripe-green-grapes-on-the-sunny-vine.jpg"
+            }
+          },
+          "4e5be9c2-b2ba-412a-aaa0-1df3918399e3": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/modern-jewelry-and-accessories-on-display.jpg"
+            }
+          },
+          "e869a6c4-d868-4a23-b033-64539c4e622b": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/purple-cotton.jpg"
+            }
+          },
+          "aa8ce57e-7171-4daa-9b23-8e3c2be81a08": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/designer_heavy_embroidered_wedding_party_wear_brown_anarkali_gown_dress_vogue_and_you_LEFT_001_F-768x1363.jpg"
+            }
+          },
+          "6e9dfca8-65fd-4050-8c8e-1af288396002": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/designer_heavy_embroidered_wedding_party_wear_black_anarkali_gown_dress_vogue_and_you_LEFT_001_C-580x1024.jpg"
+            }
+          },
+          "7fdcac06-cbb8-4015-b8f5-c6413707a9ee": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/chocolate-cake-with-toffee-sauced-drizzled-over.jpg"
+            }
+          },
+          "9c6c984d-2e4e-4939-9bdf-0bbce62ee49e": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/cutting-board-with-veg.jpg"
+            }
+          },
+          "e277b0c5-fa80-4b25-96a4-800294241047": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/milkshake-on-pink.jpg"
+            }
+          },
+          "8a87bca3-d177-4765-b161-a03cec156ab1": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/frozen-treat-sprinkles.jpg"
+            }
+          },
+          "1510302c-752b-442e-87a7-49c5b1c76d8e": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/pink-teacup-filled-with-macarons.jpg"
+            }
+          },
+          "644a49e2-d45c-41e3-8928-cbcd70c72c59": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/berry-cheesecake.jpg"
+            }
+          },
+          "ab0efb35-e616-437d-adf8-f8ea085d90f6": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/minimal-photo-view-woman-in-green-dress.jpg"
+            }
+          },
+          "a01125c4-9d7a-44ce-8884-5bf6a00b6d2b": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/fine-wooden-hangers-display-dark-clothes.jpg"
+            }
+          },
+          "218545ae-0ff1-4a1c-8eff-7dba3991c485": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/stacked-bracelets.jpg"
+            }
+          },
+          "baab892b-a798-417a-aa79-5eeb8c18c703": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/beach-towel-in-wind.jpg"
+            }
+          },
+          "5d5a5f4e-7ec5-4038-85e0-cd07dbf77be5": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/fashionable-woman-sitting-on-stairs.jpg"
+            }
+          },
+          "098e2787-b390-48f0-82d9-68ad29dc5f79": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/rainbow-cake-layers.jpg"
+            }
+          },
+          "1a4026f3-ea7a-47be-b967-f3a8c9a1d990": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/hand-holds-up-a-two-scoop-ice-cream-cone.jpg"
+            }
+          },
+          "bc6f7176-0bd4-42e9-b72d-a3b754ecb815": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/sliced-oranges.jpg"
+            }
+          },
+          "a80757a7-4c37-47d2-8890-d251a60ba9ca": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/milkshakes-with-sprinkles.jpg"
+            }
+          },
+          "81baa6af-4eae-4625-b146-05713f5e65b0": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/close-up-of-seasoned-chickpeas.jpg"
+            }
+          },
+          "61011d37-5dbd-42d7-840a-5f4c3819563f": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/wine-and-cheese-on-slate-board.jpg"
+            }
+          },
+          "92b1f084-5841-427e-9553-89a205490456": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/pizza-muffin-popover.jpg"
+            }
+          },
+          "ab058182-e18c-45eb-9de7-ac3512b3ace4": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/brushing-cooking-oil-on-bbq-corn.jpg"
+            }
+          },
+          "ee37742a-23b2-4588-b2e4-763c85381b06": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/close-up-grilled-corn.jpg"
+            }
+          },
+          "15d0e90e-e57f-474b-ad8b-b0b24ad5d509": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/layered-cake-with-decorative-napkin.jpg"
+            }
+          },
+          "2c97f50d-59e3-4d92-92fc-2fb8e9b3e9be": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/close-up-of-chestnut-flatlay.jpg"
+            }
+          },
+          "a039cfec-cfcc-40eb-9646-e591c6c784ae": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/white-cake-on-black-cake-stand.jpg"
+            }
+          },
+          "992316da-cbfb-4a02-adef-7e75134bf25e": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/tulips-and-mom-card.jpg"
+            }
+          },
+          "4cdc8196-8322-4ef3-be57-542cb554fd21": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/red-daisy-on-white.jpg"
+            }
+          },
+          "e4a6ac17-2697-4103-8f3e-9dfc05237a43": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/milk-chocolate-texture.jpg"
+            }
+          },
+          "ce58af97-044a-4151-bde0-b0980e509fee": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/milk-chocolate-bars.jpg"
+            }
+          },
+          "908abacb-80f8-461e-a6bd-ef02f3eda830": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/two-juicy-orange-slices-against-red-background.jpg"
+            }
+          },
+          "5938a307-e206-4c48-af3d-7fa3589e6dcf": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/a-busy-flatlay-with-lavender-and-other-home-items.jpg"
+            }
+          },
+          "aa3049e2-e83b-4db5-9327-4a7f51e374b6": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/lenses-lattes.jpg"
+            }
+          },
+          "4ef5229a-df2f-4e7b-8962-c9c3fbe6be6d": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/latte-art.jpg"
+            }
+          },
+          "df7e41c1-d1a6-4a74-93ad-f79f5f5ce0ba": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/plant-branch-on-a-white-background.jpg"
+            }
+          },
+          "3b607196-5f4c-4227-a4f7-294ef01add83": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/a-stack-of-cookies-and-a-glass-of-milk.jpg"
+            }
+          },
+          "c34a72a4-c922-4c19-bcc9-36edca0a9e5b": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/green-table-grapes-on-a-white-background.jpg"
+            }
+          },
+          "3784184a-a751-424e-9caf-9796abcf223b": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/french-fries-pile-on-yellow.jpg"
+            }
+          },
+          "0f73f68e-8d4e-4170-a50a-2e3a05d33ca3": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/seaweed-washed-up-on-beach.jpg"
+            }
+          },
+          "4c8e6c6c-9204-4df1-b4dd-c6237c0177fd": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/red-tropical-flower.jpg"
+            }
+          },
+          "c45b9bf1-87dc-49b5-9261-d3738f1fe859": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/dreamy-clouds.jpg"
+            }
+          },
+          "e06d7cbd-2e2c-4c3e-9e80-43d9f8c0ddf0": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/iced-latte-at-coffee-shop-window.jpg"
+            }
+          },
+          "95473faf-885a-48e8-a086-385a48ad1188": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/boho-bangle-bracelet.jpg"
+            }
+          },
+          "03f55e50-9677-4554-b397-c55f75261256": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/1200px-CottonPlant.jpg"
+            }
+          },
+          "f519784b-28a5-465f-9300-078becd8dfd9": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/sun-setting-over-ocean.jpg"
+            }
+          },
+          "d08f17f7-e930-47f0-8d08-b5d4294b5083": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/grey-couch-with-a-bookcase-behind-it.jpg"
+            }
+          },
+          "51cbea87-cc20-4a70-8b1d-6b987512a044": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/black-white-wrist-watches.jpg"
+            }
+          },
+          "49a502b2-ccbb-4c9d-b0cb-9f87d801631e": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/hanging-pocket-watch.jpg"
+            }
+          },
+          "07abf884-9f93-49e4-9bfd-5e101404762f": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/arm-with-a-smart-watch-on-wrist.jpg"
+            }
+          },
+          "fd6001b7-dd07-46e3-8976-a94d54850b50": {
+            "type": "image_picker",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/laptop-coffee.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "49fea925-5cd1-4bf2-a5f7-10a385e29146",
+          "48b71164-3e4c-4046-a425-44e28cf68e01",
+          "cf5fd501-d110-4be9-8ba8-f3b2c01198b3",
+          "7058215c-52f1-4668-a949-ec2e4086124d",
+          "2493d8b6-1eb5-4a01-b1fa-d477fec9ec1a",
+          "cce49fa0-9a93-451a-b51b-827858e37741",
+          "436b6b38-7cf1-4213-995f-f84ef611782d",
+          "b0c5fe7f-dee7-4719-8bf7-ebb5aedd3425",
+          "6dee9a5c-b17b-4165-aeb8-8f128a5fdb64",
+          "d831b9aa-5fbd-489b-8101-641178912629",
+          "4e9f6a14-60f1-45d8-bc93-a88eb077dec8",
+          "b6103492-aeca-42d0-9fcc-a85a2699b3b4",
+          "8504fb62-92c7-478e-9c5c-e010ab1e50a0",
+          "c59cbfe5-976d-4132-a177-e5440a9cdb01",
+          "4e5be9c2-b2ba-412a-aaa0-1df3918399e3",
+          "e869a6c4-d868-4a23-b033-64539c4e622b",
+          "aa8ce57e-7171-4daa-9b23-8e3c2be81a08",
+          "6e9dfca8-65fd-4050-8c8e-1af288396002",
+          "7fdcac06-cbb8-4015-b8f5-c6413707a9ee",
+          "9c6c984d-2e4e-4939-9bdf-0bbce62ee49e",
+          "e277b0c5-fa80-4b25-96a4-800294241047",
+          "8a87bca3-d177-4765-b161-a03cec156ab1",
+          "1510302c-752b-442e-87a7-49c5b1c76d8e",
+          "644a49e2-d45c-41e3-8928-cbcd70c72c59",
+          "ab0efb35-e616-437d-adf8-f8ea085d90f6",
+          "a01125c4-9d7a-44ce-8884-5bf6a00b6d2b",
+          "218545ae-0ff1-4a1c-8eff-7dba3991c485",
+          "baab892b-a798-417a-aa79-5eeb8c18c703",
+          "5d5a5f4e-7ec5-4038-85e0-cd07dbf77be5",
+          "098e2787-b390-48f0-82d9-68ad29dc5f79",
+          "1a4026f3-ea7a-47be-b967-f3a8c9a1d990",
+          "bc6f7176-0bd4-42e9-b72d-a3b754ecb815",
+          "a80757a7-4c37-47d2-8890-d251a60ba9ca",
+          "81baa6af-4eae-4625-b146-05713f5e65b0",
+          "61011d37-5dbd-42d7-840a-5f4c3819563f",
+          "92b1f084-5841-427e-9553-89a205490456",
+          "ab058182-e18c-45eb-9de7-ac3512b3ace4",
+          "ee37742a-23b2-4588-b2e4-763c85381b06",
+          "15d0e90e-e57f-474b-ad8b-b0b24ad5d509",
+          "2c97f50d-59e3-4d92-92fc-2fb8e9b3e9be",
+          "a039cfec-cfcc-40eb-9646-e591c6c784ae",
+          "992316da-cbfb-4a02-adef-7e75134bf25e",
+          "4cdc8196-8322-4ef3-be57-542cb554fd21",
+          "e4a6ac17-2697-4103-8f3e-9dfc05237a43",
+          "ce58af97-044a-4151-bde0-b0980e509fee",
+          "908abacb-80f8-461e-a6bd-ef02f3eda830",
+          "5938a307-e206-4c48-af3d-7fa3589e6dcf",
+          "aa3049e2-e83b-4db5-9327-4a7f51e374b6",
+          "4ef5229a-df2f-4e7b-8962-c9c3fbe6be6d",
+          "df7e41c1-d1a6-4a74-93ad-f79f5f5ce0ba",
+          "3b607196-5f4c-4227-a4f7-294ef01add83",
+          "c34a72a4-c922-4c19-bcc9-36edca0a9e5b",
+          "3784184a-a751-424e-9caf-9796abcf223b",
+          "0f73f68e-8d4e-4170-a50a-2e3a05d33ca3",
+          "4c8e6c6c-9204-4df1-b4dd-c6237c0177fd",
+          "c45b9bf1-87dc-49b5-9261-d3738f1fe859",
+          "e06d7cbd-2e2c-4c3e-9e80-43d9f8c0ddf0",
+          "95473faf-885a-48e8-a086-385a48ad1188",
+          "03f55e50-9677-4554-b397-c55f75261256",
+          "f519784b-28a5-465f-9300-078becd8dfd9",
+          "d08f17f7-e930-47f0-8d08-b5d4294b5083",
+          "51cbea87-cc20-4a70-8b1d-6b987512a044",
+          "49a502b2-ccbb-4c9d-b0cb-9f87d801631e",
+          "07abf884-9f93-49e4-9bfd-5e101404762f",
+          "fd6001b7-dd07-46e3-8976-a94d54850b50"
+        ],
+        "settings": {
+        }
+      },
+      "163533562629971326": {
+        "type": "instafeed",
+        "settings": {
+          "heading_font": "helvetica_n4",
+          "heading_size": 20,
+          "feed_width": 100,
+          "html_area": "<!-- -->"
+        }
+      }
+    },
+    "content_for_index": [
+      "16110282539f0a80e6",
+      "163533562629971326"
+    ],
+    "blocks": {
+      "163533564839ee065c": {
+        "type": "shopify:\/\/apps\/hulk-product-options\/blocks\/app-embed\/380168ef-9475-4244-a291-f66b189208b5",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "163533564884dcc3ad": {
+        "type": "shopify:\/\/apps\/judge-me-product-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "1635335648c9061263": {
+        "type": "shopify:\/\/apps\/judge-me-product-reviews\/blocks\/reviews_tab\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {
+          "position": "right"
+        }
+      },
+      "163533564853912c04": {
+        "type": "shopify:\/\/apps\/seal-subscriptions\/blocks\/subscription-script-append\/13b25004-a140-4ab7-b5fe-29918f759699",
+        "disabled": true,
+        "settings": {
+        }
+      }
+    }
+  }
+}
