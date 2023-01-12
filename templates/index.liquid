@@ -561,21 +561,13 @@ function processRows(json) {
    getText("https://e792195fadc89011692681e5ac92ea42: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@shreya-demo.myshopify.com/admin/api/2023-01/discount_codes/lookup.json?code=demo 1");
    // getText("https://shreya-demo.myshopify.com/admin/api/2023-01/discount_codes.json");
 
-// async function getText(file) {
-//   let x = await fetch(file);
-//   let y = await x.json();
-//   console.log(y);
-//   console.log(x);
-// }
+async function getText(file) {
+  let x = await fetch(file);
+  let y = await x.json();
+  console.log(y);
+  console.log(x);
+}
 
-   function getText(file){
-     $.ajax({
-       "type":"json",
-       "method":"GET",
-       "url":file
-     }).done(function(data){
-       console.log(data);
-     });
-   }
+ 
    
  </script> 
