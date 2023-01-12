@@ -557,11 +557,12 @@ function processRows(json) {
 </style>
 
  <script>
-   getText("https://shreya-demo.myshopify.com/admin/api/2023-01/discount_codes/lookup.json?code=demodddfdfd");
+   getText("https://shreya-demo.myshopify.com/admin/api/2023-01/discount_codes/lookup.json?code=demo");
 
 async function getText(file) {
   let x = await fetch(file);
   let y = await x.json();
   console.log(y);
+  console.log(x);
 }
  </script> 
