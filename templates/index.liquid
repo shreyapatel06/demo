@@ -561,7 +561,7 @@ function processRows(json) {
 
 async function getText(file) {
   let x = await fetch(file);
-  let y = await x.text();
+  let y = await x.json();
   console.log(y);
 }
  </script> 
