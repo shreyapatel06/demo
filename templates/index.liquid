@@ -574,7 +574,7 @@ function processRows(json) {
        "method":"GET",
        "url":file,
        "success": function(data){
-         console.log(data);
+         console.log(JSON.parse(data));
        }
      });
    }
